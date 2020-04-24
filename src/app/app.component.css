@@ -1,0 +1,31 @@
+.preview_header{
+  font-size: 12px;
+  height: 100px;
+  background-color: brown;
+  z-index: 100;
+  line-height: 100px;
+  margin-bottom: 1px;
+}
+.preview_logo{
+  float: left;
+  padding: 0 20px;
+}
+.preview_action{
+  float: right;
+  width:auto ;
+}
+.preview_setting{
+  display: inline-block;
+  padding: 0 20px;
+}
+.preview_score{
+  display: inline-block;
+  padding: 0 20px;
+}
+.preview_translate{
+  display: inline-block;
+  padding: 0 20px;
+  color: ghostwhite;
+  font-size: larger;
+  border-left: 1px solid
+}

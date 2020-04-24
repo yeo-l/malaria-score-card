@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 col-xs-12" style="padding-left: 0px; cursor: pointer;" [routerLink]="['']" tourAnchor="home.start.tour" >
+      <img src="../../assets/malariaSc_logo.png" style="height: 58px; width: 48px" >
+    </div>
+    <div class="col-md-8 col-xs-12" style="margin-top: 14px">
+      <input
+        tourAnchor="home.search"
+        type="search"
+        class="form-control"
+        placeholder="{{titleScore | translate}}">
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="card " style="background-color: darkgray">
+    <div class="cart-body" style="height: 700px">
+      <p [translate]="'Home'"> home</p>
+    </div>
+  </div>
+</div>
