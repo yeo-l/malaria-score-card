@@ -11,6 +11,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxDhis2MenuModule} from '@hisptz/ngx-dhis2-menu';
 import {NgxDhis2HttpClientModule} from '@iapps/ngx-dhis2-http-client';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DataElementMapingComponent } from './data-element-maping/data-element-maping.component';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -21,11 +23,12 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   declarations: [
     AppComponent,
     ConfigurationComponent,
-    ScoreComponent
+    ScoreComponent,
+    DataElementMapingComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxDhis2MenuModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, MatDialogModule,
     NgxDhis2HttpClientModule.forRoot({
       namespace: 'malariaScoreCard',
       version: 1,

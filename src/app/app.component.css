@@ -1,7 +1,7 @@
 .preview_header{
   font-size: 12px;
   height: 100px;
-  background-color: #2f3640;
+  background-color: #dcdde1;
   z-index: 100;
   line-height: 100px;
   margin-bottom: 1px;
@@ -30,3 +30,13 @@
   font-size: larger;
   border-left: 1px solid
 }
+.card-category{
+  text-transform: capitalize;
+  font-weight:normal;
+  color:darkgray;
+  font-size:large;
+}
+.card-title {
+  font-size: xx-large;
+}
+

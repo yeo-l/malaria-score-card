@@ -1,9 +1,23 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2 col-xs-12" style="padding-left: 0px; cursor: pointer;" [routerLink]="['']" tourAnchor="home.start.tour" >
-      <img src="../../assets/malariaSc_logo.png" style="height: 58px; width: 48px" >
+    <div class="col-md-4 col-xs-12" style="margin-top: 14px">
+      <label for="OrganisationUnit">Organisation unit</label>
+      <input
+        tourAnchor="home.search"
+        type="search"
+        class="form-control"
+        placeholder="{{'Search Malaria score card by name'}}">
     </div>
-    <div class="col-md-8 col-xs-12" style="margin-top: 14px">
+    <div class="col-md-4 col-xs-12" style="margin-top: 14px">
+      <label for="Period">periode</label>
+      <input
+        tourAnchor="home.search"
+        type="search"
+        class="form-control"
+        placeholder="{{'Search Malaria score card by name'}}">
+    </div>
+    <div class="col-md-4 col-xs-12" style="margin-top: 14px">
+      <label for="Period">search dashbord</label>
       <input
         tourAnchor="home.search"
         type="search"
@@ -12,10 +26,240 @@
     </div>
   </div>
 </div>
-<div class="container-fluid">
-  <div class="card ">
-    <div class="cart-body" style="height: 20px">
-      <p [translate]="'Home'"> home</p>
+<hr/>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-title">Region scorecard table</h5>
+        </div>
+        <div class="card-body">
+          <canvas width="400" height="100">
+          </canvas>
+        </div>
+        <div class="card-footer">
+          <div class="legend">
+            <i class="fa fa-square text-success"></i> Achieved
+            <i class="fa fa-square text-warning"></i> progress
+            <i class="fa fa-square text-danger"></i> Not in track
+            <i class="fa fa-square text-gray"></i> No Data
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title"> Regions Statistics</h5>
+        </div>
+        <div class="card-body ">
+          <div class="row">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: red"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Region</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: yellow"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Region</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: green"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Region</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: darkgray"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Region</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <div class="legend">
+              <i class="fa fa-square text-success"></i> Achieved
+              <i class="fa fa-square text-warning"></i> progress
+              <i class="fa fa-square text-danger"></i> Not in track
+              <i class="fa fa-square text-gray"></i> No Data
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr/>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-title">District scorecard table</h5>
+        </div>
+        <div class="card-body">
+          <canvas id="speedssChart" width="400" height="100">
+          </canvas>
+        </div>
+        <div class="card-footer">
+          <div class="legend">
+            <i class="fa fa-square text-success"></i> Achieved
+            <i class="fa fa-square text-warning"></i> progress
+            <i class="fa fa-square text-danger"></i> Not in track
+            <i class="fa fa-square text-gray"></i> No Data
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title"> Districts Statistics</h5>
+        </div>
+        <div class="card-body ">
+          <div class="row">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: red"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: yellow"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: green"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: darkgray"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <div class="legend">
+              <i class="fa fa-square text-success"></i> Achieved
+              <i class="fa fa-square text-warning"></i> progress
+              <i class="fa fa-square text-danger"></i> Not in track
+              <i class="fa fa-square text-gray"></i> No Data
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr/>
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-title">Facility scorecard table</h5>
+        </div>
+        <div class="card-body">
+          <canvas width="400" height="100">
+          </canvas>
+        </div>
+        <div class="card-footer">
+          <div class="legend">
+            <i class="fa fa-square text-success"></i> Achieved
+            <i class="fa fa-square text-warning"></i> progress
+            <i class="fa fa-square text-danger"></i> Not in track
+            <i class="fa fa-square text-gray"></i> No Data
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title"> Facility Statistics</h5>
+        </div>
+        <div class="card-body ">
+          <div class="row">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: red"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: yellow"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: green"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: darkgray"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <div class="legend">
+              <i class="fa fa-square text-success"></i> Achieved
+              <i class="fa fa-square text-warning"></i> progress
+              <i class="fa fa-square text-danger"></i> Not in track
+              <i class="fa fa-square text-gray"></i> No Data
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

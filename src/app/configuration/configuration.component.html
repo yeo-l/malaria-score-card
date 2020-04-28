@@ -1,55 +1,33 @@
 <div class="container-fluid p-3 border justify-content-center">
     <div class="card-header text-center" >
-      <div class="card-title"><h4>Configuration des Parametres</h4></div>
+      <div class="card-title"><h4>Mapping dhis data elements</h4></div>
     </div>
-
-  <form action="" class="mt-3">
-    <h4>Formulaire de gestion des Niveaux d'unité d'organisations</h4>
-     <div class="row form-group ">
-        <div class="col-1"><label> Region Niveau :</label></div>
-
-         <select>
-           <option>Level 2</option>
-           <option>Level 3</option>
-           <option>Level 4</option>
-           <option>Level 5</option>
-         </select>
-    </div>
-    <div class="row form-group ">
-      <div class="col-1"><label> Region district :</label></div>
-
-      <select>
-        <option>Level 2</option>
-        <option>Level 3</option>
-        <option>Level 4</option>
-        <option>Level 5</option>
-      </select>
-    </div>
-    <div class="row form-group">
-      <div class="col-1"><label> Region Facilyty :</label></div>
-      <select>
-        <option>Level 2</option>
-        <option>Level 3</option>
-        <option>Level 4</option>
-        <option>Level 5</option>
-      </select>
-    </div>
-    <div class="row form-group ">
-      <div class="col-1"><label> Region chwc :</label></div>
-      <select>
-        <option>Level 2</option>
-        <option>Level 3</option>
-        <option>Level 4</option>
-        <option>Level 5</option>
-      </select>
-    </div>
-    <div class="col">
-      <button class="btn btn-success mr-5"> Enregistrer</button>
-      <button class="btn btn-dark">Annuler</button>
-    </div>
-  </form>
 
   <div class="row justify-content-center">
+    <table class="table table-bordered table-striped table-condensed table-hover">
+      <tr>
+        <th>Group</th>
+        <th>Sub grouper</th>
+        <th>Data element</th>
+        <th>Data element/indicator</th>
+        <th>Dataset</th>
+        <th width="100px"></th>
+        <th width="100px"></th>
+        <th width="100px"></th>
+      </tr>
+      <tr ng-repeat="indicator in admCtrl.numerators| orderBy:admCtrl.numeratorSort">
+        <td class="vert-align"></td>
+        <td class="vert-align"></td>
+        <td class="vert-align" style="text-align: center;"></td>
+        <td class="vert-align"></td>
+        <td class="vert-align"></td>
+        <td class="vert-align" align="center"><button mat-raised-button (click)="openDialog()" type="button" class="btn btn-warning btn-xs">Edit</button>
+        <td class="vert-align" align="center"><button class="btn btn-danger btn-xs">Delete</button></td>
+      <td class="vert-align" align="center"><button class="btn btn-dark btn-xs">Clear</button></td>
+      </tr>
+      <tfoot>
+      <tr><td colspan="6"><button type="button" class="btn btn-primary pull-right btn-sm" style="width: 90px;">Add</button></td></tr></tfoot>
+    </table>
 
   </div>
 </div>
