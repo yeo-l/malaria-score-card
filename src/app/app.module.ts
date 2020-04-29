@@ -11,8 +11,13 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxDhis2MenuModule} from '@hisptz/ngx-dhis2-menu';
 import {NgxDhis2HttpClientModule} from '@iapps/ngx-dhis2-http-client';
-import { MatDialogModule } from '@angular/material/dialog';
 import { DataElementMapingComponent } from './data-element-maping/data-element-maping.component';
+import { PeriodeFilterComponent } from './periode-filter/periode-filter.component';
+import {NgxDhis2PeriodFilterModule} from '@iapps/ngx-dhis2-period-filter';
+import { LayoutComponent } from './layout/layout.component';
+import {TreeModule} from 'angular-tree-component';
+import {TreeviewModule} from 'ngx-treeview';
+import {DndModule} from 'ng2-dnd';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -24,11 +29,13 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppComponent,
     ConfigurationComponent,
     ScoreComponent,
-    DataElementMapingComponent
+    DataElementMapingComponent,
+    PeriodeFilterComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxDhis2MenuModule,
-    BrowserAnimationsModule, MatDialogModule,
+    BrowserAnimationsModule, TreeviewModule.forRoot(),
     NgxDhis2HttpClientModule.forRoot({
       namespace: 'malariaScoreCard',
       version: 1,
@@ -40,7 +47,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }), ReactiveFormsModule
+    }), ReactiveFormsModule, NgxDhis2PeriodFilterModule, TreeModule, DndModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,23 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label for="OrganisationUnit">Organisation unit</label>
-      <input
-        tourAnchor="home.search"
-        type="search"
-        class="form-control"
-        placeholder="{{'Search Malaria score card by name'}}">
+      <label >Organisation unit</label>
     </div>
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label for="Period">periode</label>
-      <input
-        tourAnchor="home.search"
-        type="search"
-        class="form-control"
-        placeholder="{{'Search Malaria score card by name'}}">
+      <label>periode</label>
+      <app-periode-filter></app-periode-filter>
     </div>
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label for="Period">search dashbord</label>
+      <label>search dashbord</label>
       <input
         tourAnchor="home.search"
         type="search"
@@ -29,14 +20,64 @@
 <hr/>
 <div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-6">
       <div class="card card-chart">
         <div class="card-header">
           <h5 class="card-title">Region scorecard table</h5>
         </div>
         <div class="card-body">
-          <canvas width="400" height="100">
-          </canvas>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Region 1</th>
+              <th>Region 2</th>
+              <th>Region 3</th>
+              <th>Region 4</th>
+              <th>Region 5</th>
+              <th>Region 6</th>
+              <th>Region 7</th>
+              <th>Region 8</th>
+              <th>Region 9</th>
+              <th>Region 10</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td colspan="12" class="bg-light">Impact indicators</td>
+            </tr>
+            <tr>
+              <td>Change in estimated malaria incidence</td>
+            </tr>
+            <tr>
+              <td>Change in estimated malaria mortality</td>
+            </tr>
+            <tr>
+              <td>Change in estimated malaria cases treated and cured</td>
+            </tr>
+            <tr>
+              <td colspan="12" class="bg-light">Process indicators</td>
+            </tr>
+            <tr>
+              <td olspan="12">Prevention</td>
+            </tr>
+            <tr>
+              <td>% of nets distributed</td>
+            </tr>
+            <tr>
+              <td>% of fever cases tested with RDT</td>
+            </tr>
+            <tr>
+              <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
+            </tr>
+            <tr>
+              <td>% pregnant women receiving IPT x 2 only</td>
+            </tr>
+            <tr>
+              <td>% pregnant women receiving IPT x 3</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
         <div class="card-footer">
           <div class="legend">
@@ -47,11 +88,9 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-2">
       <div class="card ">
         <div class="card-header ">
-          <h5 class="card-title"> Regions Statistics</h5>
+          <h5 class="card-title"> Regions statistics</h5>
         </div>
         <div class="card-body ">
           <div class="row">
@@ -103,12 +142,84 @@
         </div>
       </div>
     </div>
+    <div class="col-md-6">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title"> Regions scorecard table by time</h5>
+        </div>
+        <div class="card-body ">
+          <div class="row">
+            <table class="table table-bordered">
+              <thead>
+                  <tr>
+                  <th></th>
+                  <th>janvier 2020</th>
+                  <th>fevrier 2020</th>
+                  <th>mars 2020</th>
+                  <th>Avril 2020</th>
+                  <th>mai 2020</th>
+                  <th>juin 2020</th>
+                  <th>juillet 2020</th>
+                  <th>aout 2020</th>
+                  <th>septembre 2020</th>
+                  <th>octobre 2020</th>
+                  <th>novembre 2020</th>
+                  </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td colspan="12" class="bg-light">Impact indicators</td>
+              </tr>
+                <tr>
+                  <td>Change in estimated malaria incidence</td>
+                </tr>
+                <tr>
+                  <td>Change in estimated malaria mortality</td>
+                </tr>
+                <tr>
+                  <td>Change in estimated malaria cases treated and cured</td>
+                </tr>
+                <tr>
+                  <td colspan="12" class="bg-light">Process indicators</td>
+                </tr>
+              <tr>
+                <td olspan="12">Prevention</td>
+              </tr>
+                <tr>
+                  <td>% of nets distributed</td>
+                </tr>
+              <tr>
+                <td>% of fever cases tested with RDT</td>
+              </tr>
+              <tr>
+                <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
+              </tr>
+              <tr>
+                <td>% pregnant women receiving IPT x 2 only</td>
+              </tr>
+              <tr>
+                <td>% pregnant women receiving IPT x 3</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer ">
+            <div class="legend">
+              <i class="fa fa-square text-success"></i> Achieved
+              <i class="fa fa-square text-warning"></i> progress
+              <i class="fa fa-square text-danger"></i> Not in track
+              <i class="fa fa-square text-gray"></i> No Data
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <hr/>
 <div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-8">
       <div class="card card-chart">
         <div class="card-header">
           <h5 class="card-title">District scorecard table</h5>
@@ -126,8 +237,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-2">
       <div class="card ">
         <div class="card-header ">
           <h5 class="card-title"> Districts Statistics</h5>
@@ -182,12 +291,67 @@
         </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title"> Districts scorecard table by time</h5>
+        </div>
+        <div class="card-body ">
+          <div class="row">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: red"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: yellow"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: green"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: darkgray"></div>
+                <div class="numbers">
+                  <p class="card-category">Total District</p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <div class="legend">
+              <i class="fa fa-square text-success"></i> Achieved
+              <i class="fa fa-square text-warning"></i> progress
+              <i class="fa fa-square text-danger"></i> Not in track
+              <i class="fa fa-square text-gray"></i> No Data
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <hr/>
 <div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-8">
       <div class="card card-chart">
         <div class="card-header">
           <h5 class="card-title">Facility scorecard table</h5>
@@ -205,11 +369,64 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-2">
       <div class="card ">
         <div class="card-header ">
           <h5 class="card-title"> Facility Statistics</h5>
+        </div>
+        <div class="card-body ">
+          <div class="row">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: red"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: yellow"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: green"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="card-header" style="background-color: darkgray"></div>
+                <div class="numbers">
+                  <p class="card-category">Total Facility </p>
+                  <p class="card-title" style="font-size: xx-large">3456<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <div class="legend">
+              <i class="fa fa-square text-success"></i> Achieved
+              <i class="fa fa-square text-warning"></i> progress
+              <i class="fa fa-square text-danger"></i> Not in track
+              <i class="fa fa-square text-gray"></i> No Data
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title"> Facility scorecard table by time</h5>
         </div>
         <div class="card-body ">
           <div class="row">
