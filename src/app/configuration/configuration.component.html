@@ -1,33 +1,119 @@
 <div class="container-fluid p-3 border justify-content-center">
-    <div class="card-header text-center" >
-      <div class="card-title"><h4>Mapping dhis data elements</h4></div>
+  <div class="card-header text-center" >
+    <div class="card-title"><h4>Mapping dhis oranit-unit level</h4></div>
+  </div>
+  <form action="">
+    <div class="row form-group">
+      <div class="col-md-1">
+        <label class="font-weight-bold">Region :</label>
+      </div>
+      <div class="col-md-1">
+        <select class="form-control">
+          <option></option>
+          <option [ngValue]="ol.displayName" value="{{ol.displayName}}" *ngFor="let ol of orgUnitLevel" >{{ol.displayName}}</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <label class="font-weight-bold">District :</label>
+      </div>
+      <div class="col-md-1">
+        <select class="form-control">
+          <option></option>
+          <option [ngValue]="ol.displayName" value="{{ol.displayName}}" *ngFor="let ol of orgUnitLevel" >{{ol.displayName}}</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <label class="font-weight-bold">Facility :</label>
+      </div>
+      <div class="col-md-1">
+        <select class="form-control">
+          <option></option>
+          <option [ngValue]="ol.displayName" value="{{ol.displayName}}" *ngFor="let ol of orgUnitLevel" >{{ol.displayName}}</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <label class="font-weight-bold">CHW :</label>
+      </div>
+      <div class="col-md-1">
+        <select class="form-control">
+          <option></option>
+          <option [ngValue]="ol.displayName" value="{{ol.displayName}}" *ngFor="let ol of orgUnitLevel" >{{ol.displayName}}</option>
+        </select>
+
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-danger ml-3">Cancel</button>
+      </div>
     </div>
 
-  <div class="row justify-content-center">
-    <table class="table table-bordered table-striped table-condensed table-hover">
-      <tr>
-        <th>Group</th>
-        <th>Sub grouper</th>
-        <th>Data element</th>
-        <th>Data element/indicator</th>
-        <th>Dataset</th>
-        <th width="100px"></th>
-        <th width="100px"></th>
-        <th width="100px"></th>
-      </tr>
-      <tr ng-repeat="indicator in admCtrl.numerators| orderBy:admCtrl.numeratorSort">
-        <td class="vert-align"></td>
-        <td class="vert-align"></td>
-        <td class="vert-align" style="text-align: center;"></td>
-        <td class="vert-align"></td>
-        <td class="vert-align"></td>
-        <td class="vert-align" align="center"><button class="btn btn-warning btn-xs">Edit</button>
-        <td class="vert-align" align="center"><button class="btn btn-danger btn-xs">Delete</button></td>
-      <td class="vert-align" align="center"><button class="btn btn-dark btn-xs">Clear</button></td>
-      </tr>
-      <tfoot>
-      <tr><td colspan="6"><button type="button" class="btn btn-primary pull-right btn-sm" style="width: 90px;">Add</button></td></tr></tfoot>
-    </table>
+  </form>
+
+  <div class="card-header text-center" >
+    <div class="card-title"><h4>Mapping dhis data elements</h4></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row m-2 p-2 pt-3 pb-3 bg-secondary">
+        <div class="col-md-1 bg-secondary">Group</div>
+        <div class="col-md-4">Indicator</div>
+        <div class="col-md-2">type</div>
+        <div class="col-md-4">Data element</div>
+        <div class="col-md-1">Action</div>
+      </div>
+
+      <div formArrayName="items" class="row m-2 p-2 bg-light " *ngFor="let indicator of dsIndicators; let i = index">
+        <div class="col-md-1">{{indicator.groupCode}}</div>
+        <div class="col-md-4">{{indicator.name}}</div>
+        <div class="col-md-2">{{indicator.type}}</div>
+        <div class="col-md-4">{{indicator.dhisName}}</div>
+        <div class="col-md-1"><button class="btn btn-warning">Edit</button></div>
+        <div class="col-md-6 offset-5">
+          <div [formGroupName]="i">
+            <select formControlName="type" class="form-control" placeholder="type" >
+              <option>Data set</option>
+              <option>Data element</option>
+            </select>
+            <select formControlName="dhisID" class="form-control" placeholder="id">
+              <option value="{{indicator.dhisID}}">{{indicator.dhisID}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--    <table class="table table-bordered table-striped table-condensed table-hover">-->
+<!--      <tr>-->
+<!--        <td colspan="2"></td>-->
+<!--        <th colspan="5" class="text-center">Dhis 2</th>-->
+
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th>Group</th>-->
+<!--        <th>Indicator</th>-->
+<!--        <th>Data type</th>-->
+<!--        <th>Data element</th>-->
+<!--        <th width="100px"></th>-->
+<!--        <th width="100px"></th>-->
+<!--        <th width="100px"></th>-->
+<!--      </tr>-->
+<!--      <tr *ngFor="let indicator of dsIndicators" >-->
+<!--        <td class="vert-align">{{indicator.groupCode}}</td>-->
+<!--        <td class="vert-align">{{indicator.name}}</td>-->
+<!--        <td class="vert-align" style="text-align: center;" *ngIf="modeForm == false">{{indicator.dhisID}}</td>-->
+<!--        <td class="vert-align" *ngIf="modeForm == false">{{indicator.dhisID}}</td>-->
+<!--        <td class="vert-align" style="text-align: center;" *ngIf="modeForm == true">  <select class="form-control"><option>{{indicator.dhisID}}</option></select></td>-->
+<!--        <td class="vert-align" *ngIf="modeForm == true"><select><option>{{indicator.dhisID}}</option></select></td>-->
+<!--        <td class="vert-align" align="center">-->
+<!--          <button class="btn btn-warning btn-xs" (click)="tableFormActive()" *ngIf="modeForm == false">Edit</button>-->
+<!--        <button class="btn btn-primary btn-xs" (click)="saveIndicator()" *ngIf="modeForm == true">Save</button>-->
+<!--        </td>-->
+<!--        <td class="vert-align" align="center"><button class="btn btn-danger btn-xs">Delete</button></td>-->
+<!--        <td class="vert-align" align="center"><button class="btn btn-dark btn-xs">Clear</button></td>-->
+<!--      </tr>-->
+<!--      &lt;!&ndash; <tfoot>-->
+<!--      <tr><td colspan="6"><button type="button" class="btn btn-primary pull-right btn-sm" style="width: 90px;">Add</button></td></tr>-->
+<!--      </tfoot>&ndash;&gt;-->
+<!--    </table>-->
 
   </div>
 </div>
