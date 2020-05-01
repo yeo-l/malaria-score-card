@@ -32,164 +32,64 @@
       "code": "G5"
     }
   ],
-  "indicators": [
-    {
-      "name": "Change in estimated malaria incidence (2020 – 2024)",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G1",
-      "type": ""
-    },
-    {
-      "name": "Change in estimated malaria mortality (2020 – 2024)",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G1",
-      "type": ""
-    },
-    {
-      "name": "Change in estimated malaria cases treated and cured (2020 – 2024)",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G1",
-      "type": ""
-    },
-    {
-      "name": "% of nets distributed",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G2",
-      "type": ""
-    },
-    {
-      "name": "% of fever cases tested with RDT",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G2",
-      "type": ""
-    },
-    {
-      "name": "% pregnant women provided IPTp at more than 12 week gestational age",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G2",
-      "type": ""
-    },
-    {
-      "name": "% pregnant women receiving IPT x 2 only",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G2",
-      "type": ""
-    },
-    {
-      "name": "% pregnant women receiving IPT x 3",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G2",
-      "type": ""
-    },
-    {
-      "name": "% of malaria confirmed cases treated with first-line antimalarial treatment according to national policy",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G3",
-      "type": ""
-    },
-    {
-      "name": "% of severe malaria cases referred for treatment",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G3",
-      "type": ""
-    },
-    {
-      "name": "% of health facilities with stock out",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G4",
-      "type": ""
-    },
-    {
-      "name": "Number of days of ACT stock out",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G4",
-      "type": ""
-    },
-    {
-      "name": "Number of days of SP stock out",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G4",
-      "type": ""
-    },
-    {
-      "name": "Number of days of Nets stock out",
-      "dhisID": "",
-      "dhisName": "",
-      "groupCode": "G4",
-      "type": ""
-    }
-  ],
-  "ind" : {
-    "I1": {
+  "indicators" : {
+    "I01": {
       "name": "Change in estimated malaria incidence (2020 – 2024)",
       "elementId": "",
       "elementName": "",
       "groupCode": "G1",
       "type": ""
     },
-    "I2": {
+    "I02": {
       "name": "Change in estimated malaria mortality (2020 – 2024)",
       "elementId": "",
       "elementName": "",
       "groupCode": "G1",
       "type": ""
     },
-    "I3":{
+    "I03":{
       "name": "Change in estimated malaria cases treated and cured (2020 – 2024)",
       "elementId": "",
       "elementName": "",
       "groupCode": "G1",
       "type": ""
     },
-    "I4":{
+    "I04":{
       "name": "% of nets distributed",
       "elementId": "",
       "elementName": "",
       "groupCode": "G2",
       "type": ""
     },
-    "I5":{
+    "I05":{
       "name": "% of fever cases tested with RDT",
       "elementId": "",
       "elementName": "",
       "groupCode": "G2",
       "type": ""
     },
-    "I6":{
+    "I06":{
       "name": "% pregnant women provided IPTp at more than 12 week gestational age",
       "elementId": "",
       "elementName": "",
       "groupCode": "G2",
       "type": ""
     },
-    "I7":{
+    "I07":{
       "name": "% pregnant women receiving IPT x 2 only",
       "elementId": "",
       "elementName": "",
       "groupCode": "G2",
       "type": ""
     },
-    "I8":{
+    "I08":{
       "name": "% pregnant women receiving IPT x 3",
       "elementId": "",
       "elementName": "",
       "groupCode": "G2",
       "type": ""
     },
-    "I9":{
+    "I09":{
       "name": "% of malaria confirmed cases treated with first-line antimalarial treatment according to national policy",
       "elementId": "",
       "elementName": "",

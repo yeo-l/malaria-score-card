@@ -18,6 +18,7 @@ import { LayoutComponent } from './layout/layout.component';
 import {TreeModule} from 'angular-tree-component';
 import {TreeviewModule} from 'ngx-treeview';
 import {DndModule} from 'ng2-dnd';
+import { NgSelect2Module } from 'ng-select2';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -35,6 +36,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   imports: [
     BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxDhis2MenuModule,
+    NgSelect2Module,
     BrowserAnimationsModule, TreeviewModule.forRoot(),
     NgxDhis2HttpClientModule.forRoot({
       namespace: 'malariaScoreCard',

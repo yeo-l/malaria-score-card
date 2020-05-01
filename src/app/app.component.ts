@@ -19,16 +19,22 @@ export class AppComponent implements OnInit{
     translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   }
   ngOnInit(){
-    this.getMalariaDataStor();
+    this.getMalariaDataStore();
+    // this.uploadDataStore();
+  }
+  uploadDataStore(){
+    this.dataSeries.upload().subscribe(data => {
+      console.log(data)
+    })
   }
   postMalariaDataStore(){
     this.dataSeries.postDataStore().subscribe(malariaData => {
       console.log(malariaData);
     });
   }
-  getMalariaDataStor(){
+  getMalariaDataStore(){
     this.dataSeries.getDataStore().subscribe(data => {
-      console.log('this data store', data);
+      // console.log('this data store', data);
     }, dsError => {
       this.postMalariaDataStore();
       console.log('error getting data store', dsError);
