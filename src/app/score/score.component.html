@@ -1,19 +1,19 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label >Organisation unit</label>
+      <label></label>
     </div>
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
       <label>{{'period'|translate}}</label>
       <app-periode-filter></app-periode-filter>
     </div>
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label>search dashbord</label>
+      <label>{{"search dashbord"|translate}}</label>
       <input
         tourAnchor="home.search"
         type="search"
         class="form-control"
-        placeholder="{{'Search Malaria score card by name'}}">
+        placeholder="{{'Search Malaria score card by name'|translate}}">
     </div>
   </div>
 </div>
@@ -23,7 +23,25 @@
     <div class="col-md-6">
       <div class="card card-chart">
         <div class="card-header">
-          <h5 class="card-title">Region scorecard table</h5>
+          <div class="row">
+            <div class="col-4">
+              <h5 class="card-title">{{"Region scorecard table"|translate}}</h5>
+            </div>
+            <div class="col-8 ng-autocomplete">
+              <ng-autocomplete [data]="data" [searchKeyword]="keyword" [itemTemplate]="itemTemplate">
+              </ng-autocomplete>
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.name"></a>
+              </ng-template>
+
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
+<!--              <select class="dropdown-toggle form-control">-->
+<!--                <option value="">{{"select the region"|translate}}</option>-->
+<!--              </select>-->
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <table class="table table-bordered">
@@ -145,7 +163,7 @@
     <div class="col-md-6">
       <div class="card ">
         <div class="card-header ">
-          <h5 class="card-title"> Regions scorecard table by time</h5>
+          <h5 class="card-title">{{"Regions scorecard table by time"|translate}}</h5>
         </div>
         <div class="card-body ">
           <div class="row">

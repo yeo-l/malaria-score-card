@@ -120,6 +120,12 @@
   "Data Elements":"Éléments de données",
   "Indicators":"Éléments de données",
   "period": "periode",
+  "select the region": "selectionner la region",
+  "Region scorecard table": "tableau score card de la region",
+  "search dashbord": "Recherche Tableau de bord",
+  "Search Malaria score card by name": "Recherche le score card malaria par nom",
+  "Regions scorecard table by time": "tableau score card des regions periodique",
+  "Mapping dhis oranit-unit level": "Mapper le niveau des unités d'organisations dhis",
 
   "Name":"prénom",
   "Weight": "Poids",
