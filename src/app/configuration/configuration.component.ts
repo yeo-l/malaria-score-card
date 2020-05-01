@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DataService} from '../services/data.service';
 import {MalariaOrgUnitModel} from '../models/malaria-orgUnit-model';
 import {MalariaIndicatorModel} from '../models/malaria-indicator-model';
 import {MalariaGroupModel} from '../models/malaria-group-model';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MalariaDataStoreModel} from "../models/malaria-data-store-model";
 // import * as jquery from 'jquery';
 import {Select2OptionData} from "ng-select2";
@@ -87,8 +87,20 @@ export class ConfigurationComponent implements OnInit {
   }
 
   saveDataStore(){
+    for (let i = 0; i <= this.dataStore.indicators.length; i++) {
+      // console.log(this.dataStore.indicators[i]);
+      if (this.dataStore.indicators[i]) {
+        if (this.dataStore.indicators[i].dhisID){
+          if (this.dataStore.indicators[i].type === 'data element') {
+            this.dataStore.indicators[i].dhisName = this.dataElementObjectName[(this.dataStore.indicators[i].dhisID)];
+          } else if (this.dataStore.indicators[i].type === 'indicator') {
+            this.dataStore.indicators[i].dhisName = this.indicatorObjectName[(this.dataStore.indicators[i].dhisID)];
+          }
+        }
+      }
+    }
+    //console.log(this.dataStore.indicators);
     this.dataSeries.update(this.dataStore).subscribe(data => {
-
       this.editId = '-1';
       console.log(data);
     });
@@ -101,7 +113,7 @@ export class ConfigurationComponent implements OnInit {
       // this.elements = data;
       data.indicators.forEach((indicator:any) => {
         this.elements[indicator.id] = indicator.name;
-        // this.indicatorObjectName[indicator.id] = indicator.name;
+        this.indicatorObjectName[indicator.id] = indicator.name;
       });
 
       //console.log(this.indicatorObjectName);
@@ -111,19 +123,13 @@ export class ConfigurationComponent implements OnInit {
     // const params = ['fields=id,name~rename(text)'];
     const params = ['fields=id,name'];
     this.dataSeries.loadDataElements(params).subscribe((data: any) => {
-      console.log(data);
+      //console.log(data);
       // this.elements = data;
       data.dataElements.forEach((de: any) => {
-        // let option : Select2OptionData = de;
 
         this.elements[de.id] = de.name;
-        // option.text = de.name;
-        // option.id = de.id;
-        // this.select2Data.push(option);
-        // this.dataElementObjectName[de.id] = de.name;
+        this.dataElementObjectName[de.id] = de.name;
       });
-      // console.log(this.select2Data);
-      //console.log(this.indicatorObjectName);
     });
   }
 
