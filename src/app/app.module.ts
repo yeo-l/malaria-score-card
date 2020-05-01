@@ -11,7 +11,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxDhis2MenuModule} from '@hisptz/ngx-dhis2-menu';
 import {NgxDhis2HttpClientModule} from '@iapps/ngx-dhis2-http-client';
-import { DataElementMapingComponent } from './data-element-maping/data-element-maping.component';
 import { PeriodeFilterComponent } from './periode-filter/periode-filter.component';
 import {NgxDhis2PeriodFilterModule} from '@iapps/ngx-dhis2-period-filter';
 import { LayoutComponent } from './layout/layout.component';
@@ -30,7 +29,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppComponent,
     ConfigurationComponent,
     ScoreComponent,
-    DataElementMapingComponent,
     PeriodeFilterComponent,
     LayoutComponent
   ],

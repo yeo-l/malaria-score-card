@@ -28,18 +28,18 @@
               <h5 class="card-title">{{"Region scorecard table"|translate}}</h5>
             </div>
             <div class="col-8 ng-autocomplete">
-              <ng-autocomplete [data]="data" [searchKeyword]="keyword" [itemTemplate]="itemTemplate">
-              </ng-autocomplete>
-              <ng-template #itemTemplate let-item>
-                <a [innerHTML]="item.name"></a>
-              </ng-template>
+<!--              <ng-autocomplete [data]="data" [searchKeyword]="keyword" [itemTemplate]="itemTemplate">-->
+<!--              </ng-autocomplete>-->
+<!--              <ng-template #itemTemplate let-item>-->
+<!--                <a [innerHTML]="item.name"></a>-->
+<!--              </ng-template>-->
 
-              <ng-template #notFoundTemplate let-notFound>
-                <div [innerHTML]="notFound"></div>
-              </ng-template>
-<!--              <select class="dropdown-toggle form-control">-->
-<!--                <option value="">{{"select the region"|translate}}</option>-->
-<!--              </select>-->
+<!--              <ng-template #notFoundTemplate let-notFound>-->
+<!--                <div [innerHTML]="notFound"></div>-->
+<!--              </ng-template>-->
+              <select class="dropdown-toggle form-control">
+                <option value="">{{"select the region"|translate}}</option>
+              </select>
             </div>
           </div>
         </div>

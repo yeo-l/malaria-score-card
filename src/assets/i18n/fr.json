@@ -30,7 +30,6 @@
   "card_view": "Affichange de la carte",
   "thumbnail_view": "Vue miniature",
 
-  "I'm in translation mode": "je suis en mode traduction",
   "configuration  malaria Score Card": "configuration de la fiche d'évaluation malaria",
   "Select Period": "Sélectionnez une période",
   "Select period type": "Sélectionnez le type de période",
@@ -111,11 +110,7 @@
   "Adding new legend will reset legend definition for all indicators": "L'ajout d'une nouvelle légende réinitialise la définition de la légende pour tous les indicateurs",
   "click to add new label example, source of data for indicator":"Cliquez pour ajouter un nouvel exemple d'étiquette, source de données pour l'indicateur",
 
-  "Pair With Current": "Jumeler avec le courant",
-  "No items for a selected group": "Aucun élément pour un groupe sélectionné",
-  "Custom Functions":"Fonctions personnalisées",
-  "Event Data Items":"Éléments de données d'événement",
-  "Program Indicators":"Indicateurs de programme",
+
   "Data Sets":"Ensembles de données",
   "Data Elements":"Éléments de données",
   "Indicators":"Éléments de données",
@@ -125,7 +120,7 @@
   "search dashbord": "Recherche Tableau de bord",
   "Search Malaria score card by name": "Recherche le score card malaria par nom",
   "Regions scorecard table by time": "tableau score card des regions periodique",
-  "Mapping dhis oranit-unit level": "Mapper le niveau des unités d'organisations dhis",
+  "Mapping dhis oranit-unit level": "Mapper le niveau des unités organisations dhis",
 
   "Name":"prénom",
   "Weight": "Poids",
