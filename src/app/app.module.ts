@@ -20,7 +20,6 @@ import {TreeviewModule} from 'ngx-treeview';
 import {DndModule} from 'ng2-dnd';
 import { NgSelect2Module } from 'ng-select2';
 
-
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
 }

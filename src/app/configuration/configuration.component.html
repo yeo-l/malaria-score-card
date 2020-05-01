@@ -92,7 +92,10 @@
           </div>
 
         </div>
-        <div class="col-md-1"><button class="btn btn-warning" (click)="editField(i)">Edit</button></div>
+        <div class="col-md-1">
+          <button *ngIf="i != editId" class="btn btn-warning" (click)="editField(i)">Edit</button>
+          <button *ngIf="i == editId" class="btn btn-success" (click)="saveDataStore()">Save</button>
+        </div>
         <!--        <div class="col-md-6 offset-5">-->
         <!--          <div class="row">-->
         <!--            <div [formGroupName]="i">-->

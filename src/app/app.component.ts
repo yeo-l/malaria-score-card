@@ -32,7 +32,7 @@ export class AppComponent implements OnInit{
       console.log(malariaData);
     });
   }
-  getMalariaDataStore(){
+  getMalariaDataStore() {
     this.dataSeries.getDataStore().subscribe(data => {
       // console.log('this data store', data);
     }, dsError => {

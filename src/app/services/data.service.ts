@@ -19,13 +19,13 @@ export class DataService {
     return this.httpClient.post(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator', this.tData);
   }
   upload(){
-    return this.httpClient.post(SERVER_API_URL + '/dataStore/malariaSoreCard/setting', this.dataStore);
+    return this.httpClient.post(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator', this.dataStore);
   }
   getDataStore(){
     return this.httpClient.get<IMalariaDataStoreModel>(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator');
   }
   load(){
-    return this.httpClient.get<any>(SERVER_API_URL + '/dataStore/malariaSoreCard/setting');
+    return this.httpClient.get<any>(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator');
   }
   getOrganisationUnitLevels(){
     return this.httpClient.get(SERVER_API_URL + '/organisationUnitLevels');
@@ -52,6 +52,6 @@ export class DataService {
   }
 
   update(dataStore: MalariaDataStoreModel) {
-    return this.httpClient.put(SERVER_API_URL + '/dataStore/malariaSoreCard/setting', this.dataStore);
+    return this.httpClient.put(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator', dataStore);
   }
 }

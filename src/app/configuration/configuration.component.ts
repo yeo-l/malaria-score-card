@@ -87,7 +87,11 @@ export class ConfigurationComponent implements OnInit {
   }
 
   saveDataStore(){
-    this.dataSeries.update(this.dataStore).subscribe()
+    this.dataSeries.update(this.dataStore).subscribe(data => {
+
+      this.editId = '-1';
+      console.log(data);
+    });
   }
 
   async getIndicators() {
