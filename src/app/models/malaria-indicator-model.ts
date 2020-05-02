@@ -13,3 +13,4 @@ export class MalariaIndicatorModel implements IMalariaIndicatorModel{
                public groupCode: string,
                public type: string) {}
 }
+
