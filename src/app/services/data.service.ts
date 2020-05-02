@@ -30,7 +30,6 @@ export class DataService {
   getOrganisationUnitLevels(){
     return this.httpClient.get(SERVER_API_URL + '/organisationUnitLevels');
   }
-
   save(dataStore: MalariaDataStoreModel): Observable<Object> {
     return this.httpClient.post(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator', dataStore);
   }

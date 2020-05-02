@@ -33,8 +33,6 @@ export class LayoutComponent implements OnInit {
   showLayout: boolean = true;
   constructor() {
     this.icons = {
-      dx: '../assets/img/data.png',
-      ou: '../assets/img/tree.png',
       pe: '../assets/img/period.png'
     };
 
