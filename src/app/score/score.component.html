@@ -4,11 +4,11 @@
       <label></label>
     </div>
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label>{{'period'|translate}}</label>
+<!--      <label>{{'period'|translate}}</label>-->
       <app-periode-filter></app-periode-filter>
     </div>
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label>{{"search dashbord"|translate}}</label>
+<!--      <label>{{"search dashbord"|translate}}</label>-->
       <input
         tourAnchor="home.search"
         type="search"
@@ -19,214 +19,225 @@
 </div>
 <hr/>
 <div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card card-chart">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-4">
-              <h5 class="card-title">{{"Region scorecard table"|translate}}</h5>
-            </div>
-            <div class="col-8 ng-autocomplete">
-<!--              <ng-autocomplete [data]="data" [searchKeyword]="keyword" [itemTemplate]="itemTemplate">-->
-<!--              </ng-autocomplete>-->
-<!--              <ng-template #itemTemplate let-item>-->
-<!--                <a [innerHTML]="item.name"></a>-->
-<!--              </ng-template>-->
-
-<!--              <ng-template #notFoundTemplate let-notFound>-->
-<!--                <div [innerHTML]="notFound"></div>-->
-<!--              </ng-template>-->
-              <select class="dropdown-toggle form-control">
-                <option value="">{{"select the region"|translate}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th></th>
-              <th>District 1</th>
-              <th>District 2</th>
-              <th>District 3</th>
-              <th>District 4</th>
-              <th>District 5</th>
-              <th>District 6</th>
-              <th>District 7</th>
-              <th>District 8</th>
-              <th>District 9</th>
-              <th>District 10</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td colspan="12" class="bg-light">Impact indicators</td>
-            </tr>
-            <tr>
-              <td>Change in estimated malaria incidence</td>
-            </tr>
-            <tr>
-              <td>Change in estimated malaria mortality</td>
-            </tr>
-            <tr>
-              <td>Change in estimated malaria cases treated and cured</td>
-            </tr>
-            <tr>
-              <td colspan="12" class="bg-light">Process indicators</td>
-            </tr>
-            <tr>
-              <td olspan="12">Prevention</td>
-            </tr>
-            <tr>
-              <td>% of nets distributed</td>
-            </tr>
-            <tr>
-              <td>% of fever cases tested with RDT</td>
-            </tr>
-            <tr>
-              <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
-            </tr>
-            <tr>
-              <td>% pregnant women receiving IPT x 2 only</td>
-            </tr>
-            <tr>
-              <td>% pregnant women receiving IPT x 3</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card-footer">
-          <div class="legend">
-            <i class="fa fa-square text-success"></i> Achieved
-            <i class="fa fa-square text-warning"></i> progress
-            <i class="fa fa-square text-danger"></i> Not in track
-            <i class="fa fa-square text-gray"></i> No Data
+  <div class="card card-chart">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-6"><h1 class="card-title">{{"Region score card"|translate}} </h1></div>
+          <div class="col-md-6 text-left">
+            <select class="dropdown-toggle form-control">
+              <option>{{"select Region" |translate}}</option>
+              <option value="{{ouRegion.id}}" *ngFor="let ouRegion of regions">{{ouRegion.name}}</option>
+            </select>
           </div>
         </div>
       </div>
-      <div class="card ">
-        <div class="card-header ">
-          <h5 class="card-title"> Regions statistics</h5>
-        </div>
-        <div class="card-body ">
-          <div class="row">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: red"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Region</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-chart">
+              <div class="card-header justify-content-center text-center">
+                <h1 class="card-title">{{"Region scorecard table"|translate}} </h1>
               </div>
             </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: yellow"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Region</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: green"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Region</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: darkgray"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Region</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-square text-success"></i> Achieved
-              <i class="fa fa-square text-warning"></i> progress
-              <i class="fa fa-square text-danger"></i> Not in track
-              <i class="fa fa-square text-gray"></i> No Data
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card ">
-        <div class="card-header ">
-          <h5 class="card-title">{{"Regions scorecard table by time"|translate}}</h5>
-        </div>
-        <div class="card-body ">
-          <div class="row">
-            <table class="table table-bordered">
-              <thead>
-                  <tr>
-                  <th></th>
-                  <th>janvier 2020</th>
-                  <th>fevrier 2020</th>
-                  <th>mars 2020</th>
-                  <th>Avril 2020</th>
-                  <th>mai 2020</th>
-                  <th>juin 2020</th>
-                  <th>juillet 2020</th>
-                  <th>aout 2020</th>
-                  <th>septembre 2020</th>
-                  <th>octobre 2020</th>
-                  <th>novembre 2020</th>
-                  </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td colspan="12" class="bg-light">Impact indicators</td>
-              </tr>
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
                 <tr>
-                  <td>Change in estimated malaria incidence</td>
+                  <th></th>
+                  <th>District 1</th>
+                  <th>District 2</th>
+                  <th>District 3</th>
+                  <th>District 4</th>
+                  <th>District 5</th>
+                  <th>District 6</th>
+                  <th>District 7</th>
+                  <th>District 8</th>
+                  <th>District 9</th>
+                  <th>District 10</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td colspan="12" class="bg-light">Impact indicators</td>
+                </tr>
+                <tr>
+                  <td>  demo.textChange in estimated malaria incidence</td>
+                  <td>69</td>
+                  <td>90</td>
+                  <td>90</td>
+                  <td>20</td>
+                  <td>90</td>
+                  <td>30</td>
+                  <td>90</td>
+                  <td>78</td>
+                  <td>240</td>
+                  <td>40</td>
                 </tr>
                 <tr>
                   <td>Change in estimated malaria mortality</td>
+                  <td>67</td>
                 </tr>
                 <tr>
                   <td>Change in estimated malaria cases treated and cured</td>
+                  <td>27</td>
                 </tr>
                 <tr>
                   <td colspan="12" class="bg-light">Process indicators</td>
                 </tr>
-              <tr>
-                <td olspan="12">Prevention</td>
-              </tr>
+                <tr>
+                  <td olspan="12">Prevention</td>
+                </tr>
                 <tr>
                   <td>% of nets distributed</td>
                 </tr>
-              <tr>
-                <td>% of fever cases tested with RDT</td>
-              </tr>
-              <tr>
-                <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
-              </tr>
-              <tr>
-                <td>% pregnant women receiving IPT x 2 only</td>
-              </tr>
-              <tr>
-                <td>% pregnant women receiving IPT x 3</td>
-              </tr>
-              </tbody>
-            </table>
+                <tr>
+                  <td>% of fever cases tested with RDT</td>
+                </tr>
+                <tr>
+                  <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
+                </tr>
+                <tr>
+                  <td>% pregnant women receiving IPT x 2 only</td>
+                </tr>
+                <tr>
+                  <td>% pregnant women receiving IPT x 3</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              <div class="legend">
+                <i class="fa fa-square text-success"></i> Achieved
+                <i class="fa fa-square text-warning"></i> progress
+                <i class="fa fa-square text-danger"></i> Not in track
+                <i class="fa fa-square text-gray"></i> No Data
+              </div>
+            </div>
           </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-square text-success"></i> Achieved
-              <i class="fa fa-square text-warning"></i> progress
-              <i class="fa fa-square text-danger"></i> Not in track
-              <i class="fa fa-square text-gray"></i> No Data
+          <div class="col-md-6">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">{{"Regions scorecard table by time"|translate}}</h5>
+              </div>
+              <div class="card-body ">
+                <div class="row">
+                  <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>janvier 2020</th>
+                      <th>fevrier 2020</th>
+                      <th>mars 2020</th>
+                      <th>Avril 2020</th>
+                      <th>mai 2020</th>
+                      <th>juin 2020</th>
+                      <th>juillet 2020</th>
+                      <th>aout 2020</th>
+                      <th>septembre 2020</th>
+                      <th>octobre 2020</th>
+                      <th>novembre 2020</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td colspan="12" class="bg-light">Impact indicators</td>
+                    </tr>
+                    <tr>
+                      <td>Change in estimated malaria incidence</td>
+                    </tr>
+                    <tr>
+                      <td>Change in estimated malaria mortality</td>
+                    </tr>
+                    <tr>
+                      <td>Change in estimated malaria cases treated and cured</td>
+                    </tr>
+                    <tr>
+                      <td colspan="12" class="bg-light">Process indicators</td>
+                    </tr>
+                    <tr>
+                      <td olspan="12">Prevention</td>
+                    </tr>
+                    <tr>
+                      <td>% of nets distributed</td>
+                    </tr>
+                    <tr>
+                      <td>% of fever cases tested with RDT</td>
+                    </tr>
+                    <tr>
+                      <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
+                    </tr>
+                    <tr>
+                      <td>% pregnant women receiving IPT x 2 only</td>
+                    </tr>
+                    <tr>
+                      <td>% pregnant women receiving IPT x 3</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-footer ">
+                  <div class="legend">
+                    <i class="fa fa-square text-success"></i> Achieved
+                    <i class="fa fa-square text-warning"></i> progress
+                    <i class="fa fa-square text-danger"></i> Not in track
+                    <i class="fa fa-square text-gray"></i> No Data
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card ">
+          <div class="card-header ">
+            <h5 class="card-title"> Regions statistics</h5>
+          </div>
+          <div class="card-body ">
+            <div class="row">
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header" style="background-color: red"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total Region</p>
+                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header" style="background-color: yellow"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total Region</p>
+                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header" style="background-color: green"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total Region</p>
+                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  </div>
+                </div>
+              </div>
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header" style="background-color: darkgray"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total Region</p>
+                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ">
+              <div class="legend">
+                <i class="fa fa-square text-success"></i> Achieved
+                <i class="fa fa-square text-warning"></i> progress
+                <i class="fa fa-square text-danger"></i> Not in track
+                <i class="fa fa-square text-gray"></i> No Data
+              </div>
             </div>
           </div>
         </div>

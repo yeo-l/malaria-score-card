@@ -5,7 +5,7 @@
   </div>
   <div class="preview_action">
     <div class="preview_score">
-      <button class="btn btn-primary" [ngClass]="{'btn-info':title === 'Malaria score card'}" [routerLink]="['/score']"> SCORE CARD</button>
+      <button class="btn btn-primary" [ngClass]="{'btn-info':title === 'Malaria score card'}" [routerLink]="['/score']"> {{"SCORE CARD" |translate}}</button>
     </div>
     <div class="preview_setting">
       <a href="#">
@@ -16,8 +16,20 @@
       </a>
     </div>
     <div class="preview_translate">
-      <a href="#" (click)="translate.use('en')"><strong>EN</strong></a> |
-      <a href="#" (click)="translate.use('fr')"><strong>FR</strong> </a>
+      <!--      <div class="form-check form-check-inline">-->
+      <!--        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked (click)="translate.use('en')">-->
+      <!--        <label class="form-check-label" style="color: black" ><strong>EN </strong></label> ||-->
+      <!--        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" (click)="translate.use('fr')">-->
+      <!--        <label class="form-check-label" style="color: black" ><strong> FR</strong></label>-->
+      <!--      </div>-->
+      <span class="form-inline">
+      <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
+        <option *ngFor="let language of translate.getLangs()" [value]="language"
+                [selected]="language === translate.currentLang">
+          {{ language }}
+        </option>
+      </select>
+</span>
     </div>
   </div>
 </div>

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpClient} from '@angular/common/http';
-import {SERVER_API_URL} from './shared/constants';
 import {DataService} from './services/data.service';
 
 
@@ -12,20 +11,31 @@ import {DataService} from './services/data.service';
 })
 export class AppComponent implements OnInit{
   title = 'malaria-score-card';
+  langId = 'en';
   constructor(public translate: TranslateService, private httpClient: HttpClient, private dataSeries: DataService) {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    // const browserLang = translate.getBrowserLang();
+   //  translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   }
   ngOnInit(){
     this.getMalariaDataStore();
     // this.uploadDataStore();
   }
+  switchLang(lang: string) {
+    this.translate.use(lang);
+    if (lang !== 'en'){
+      this.langId = 'en';
+    }
+    else
+      {
+        this.langId = 'fr'; }
+    console.log(this.langId);
+  }
   uploadDataStore(){
     this.dataSeries.upload().subscribe(data => {
-      console.log(data)
-    })
+      console.log(data);
+    });
   }
   postMalariaDataStore(){
     this.dataSeries.postDataStore().subscribe(malariaData => {
