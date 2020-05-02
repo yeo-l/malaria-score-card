@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DataService} from '../services/data.service';
-import {MalariaOrgUnitModel} from '../models/malaria-orgUnit-model';
-import {MalariaIndicatorModel} from '../models/malaria-indicator-model';
-import {MalariaGroupModel} from '../models/malaria-group-model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MalariaDataStoreModel} from "../models/malaria-data-store-model";
+import {NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
+import {merge, Observable, Subject} from "rxjs";
+import {debounceTime, distinctUntilChanged, filter, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-configuration',
@@ -15,37 +15,48 @@ import {MalariaDataStoreModel} from "../models/malaria-data-store-model";
 
 export class ConfigurationComponent implements OnInit {
   orgUnitLevels: any[] = [];
-  dsIndicators: MalariaIndicatorModel[];
   dataStore: MalariaDataStoreModel = new MalariaDataStoreModel();
-  dsGroups: MalariaGroupModel[];
-  dsOULevel: MalariaOrgUnitModel;
   dataElementObjectName: {} = {};
   indicatorObjectName: {} = {};
   modeForm = false;
   editId: any = '-1';
   elements: {} = {};
   elementList: [{}] = [{}];
-  elementsBoard: [[]] = [[]];
+  elementsBoard:[[]]= [[]];
 
   // items: FormArray;
    editing: boolean = false;
 
+  // @ViewChild('instance', {static: true}) instance: NgbTypeahead;
+  // focus$ = new Subject<string>();
+  // click$ = new Subject<string>();
   constructor( private loadData: HttpClient, private dataSeries: DataService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    // jquery('.select2').select2();
     this.getIndicatorDataStore();
   }
-  createItem( indicatorType: string, id: string): FormGroup {
-    return this.formBuilder.group({
-      type: indicatorType,
-      dhisID: id
-    });
-  }
+
+  // search = (text$: Observable<string>) => {
+  //   let list:[{}] = [{}];
+  //   Object.keys(this.elementList[parseInt(this.editId)]).forEach((el:{
+  //     value: string;
+  //     key: string;
+  //   }) => {
+  //     list.push({id: el.key, value: el.value});
+  //   });
+  //   const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+  //   const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+  //   const inputFocus$ = this.focus$;
+  //
+  //   return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+  //     map(term => (term === '' ? this.elementList[parseInt(this.editId)]
+  //       : this.elementList[parseInt(this.editId)].filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+  //   );
+  // };
+
   async getOrgUnitUnitLevel(): Promise<void> {
     const params: string[] = ['fields=name,level'];
     await this.dataSeries.loadMetaData('organisationUnitLevels', params).subscribe((levels: any) => {
-      // console.log(levels);
       this.orgUnitLevels = levels.organisationUnitLevels;
     });
   }
@@ -70,14 +81,6 @@ export class ConfigurationComponent implements OnInit {
       this.dataStore = dataStore;
       this.createEmptyElement();
       this.getOrgUnitUnitLevel();
-      // this.dsIndicators = dataStore.indicators;
-      // this.items.clear();
-      // this.dsIndicators.forEach(indicator => {
-      //   this.items.push(this.createItem(indicator.type, indicator.dhisID));
-      // });
-      // console.log(this.dsIndicators);
-      // this.dsGroups = dataStore.indicatorGroup;
-      // this.dsOULevel = dataStore.orgUnitLevel;
     });
   }
   tableFormActive(){
@@ -89,7 +92,6 @@ export class ConfigurationComponent implements OnInit {
 
   saveDataStore(){
     for (let i = 0; i <= this.dataStore.indicators.length; i++) {
-      // console.log(this.dataStore.indicators[i]);
       if (this.dataStore.indicators[i]) {
         if (this.dataStore.indicators[i].dhisID){
           if (this.dataStore.indicators[i].type === 'data element') {
@@ -100,16 +102,11 @@ export class ConfigurationComponent implements OnInit {
         }
       }
     }
-    // console.log(this.dataStore.indicators);
     this.dataSeries.update(this.dataStore).subscribe(data => {
       this.editId = '-1';
       console.log(data);
     });
   }
-  saveOrgUnitLevel(){
-    this.dataSeries.update(this.dataStore).subscribe(data => {
-    });
-  };
 
   cancelEdit(){
     this.editId = '-1';
@@ -129,18 +126,16 @@ export class ConfigurationComponent implements OnInit {
         this.elementList[index] = this.elements;
         this.indicatorObjectName[indicator.id] = indicator.name;
       });
-
-      // console.log(this.indicatorObjectName);
+      //console.log(this.indicatorObjectName);
     });
   }
   async getDataElements(index: number) {
     const params = ['fields=id,name'];
     this.elementsBoard = [[]];
     await this.dataSeries.loadDataElements(params).subscribe((data: any) => {
-      // console.log(data);
+      //console.log(data);
       this.elementsBoard[index] = data.dataElements;
       data.dataElements.forEach((de: any) => {
-
         this.elements[de.id] = de.name;
         this.elementList[index] = this.elements;
         this.dataElementObjectName[de.id] = de.name;

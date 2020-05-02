@@ -1,0 +1,135 @@
+{
+  "orgUnitLevel": [
+    {
+      "region": "",
+      "district": "",
+      "facility": "",
+      "chw": ""
+    }
+  ],
+  "indicatorGroup": [
+    {
+      "groupCode": "Impact indicators",
+      "code": "G1"
+    },
+    {
+      "groupCode": "Prevention",
+      "code": "G2",
+      "parent": "G5"
+    },
+    {
+      "groupCode": "Treatment",
+      "code": "G3",
+      "parent": "G5"
+    },
+    {
+      "groupCode": "Commodities management",
+      "code": "G4",
+      "parent": "G5"
+    },
+    {
+      "groupCode": "Process indicators",
+      "code": "G5"
+    }
+  ],
+  "indicators" : {
+    "I01": {
+      "name": "Change in estimated malaria incidence (2020 – 2024)",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G1",
+      "type": ""
+    },
+    "I02": {
+      "name": "Change in estimated malaria mortality (2020 – 2024)",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G1",
+      "type": ""
+    },
+    "I03":{
+      "name": "Change in estimated malaria cases treated and cured (2020 – 2024)",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G1",
+      "type": ""
+    },
+    "I04":{
+      "name": "% of nets distributed",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G2",
+      "type": ""
+    },
+    "I05":{
+      "name": "% of fever cases tested with RDT",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G2",
+      "type": ""
+    },
+    "I06":{
+      "name": "% pregnant women provided IPTp at more than 12 week gestational age",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G2",
+      "type": ""
+    },
+    "I07":{
+      "name": "% pregnant women receiving IPT x 2 only",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G2",
+      "type": ""
+    },
+    "I08":{
+      "name": "% pregnant women receiving IPT x 3",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G2",
+      "type": ""
+    },
+    "I09":{
+      "name": "% of malaria confirmed cases treated with first-line antimalarial treatment according to national policy",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G3",
+      "type": ""
+    },
+    "I10":{
+      "name": "% of severe malaria cases referred for treatment",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G3",
+      "type": ""
+    },
+    "I11":{
+      "name": "% of health facilities with stock out",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G4",
+      "type": ""
+    },
+    "I12":{
+      "name": "Number of days of ACT stock out",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G4",
+      "type": ""
+    },
+    "I13":{
+      "name": "Number of days of SP stock out",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G4",
+      "type": ""
+    },
+    "I14":{
+      "name": "Number of days of Nets stock out",
+      "elementId": "",
+      "elementName": "",
+      "groupCode": "G4",
+      "type": ""
+    }
+  }
+}
