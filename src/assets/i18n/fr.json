@@ -134,6 +134,11 @@
   "select Region": "Selection de la region",
   "view": "Voir",
   "score card table": "Tableau de fiche d'évaluation",
+  "Achieved" : "Accomplis",
+  "progress" : "Progresse",
+  "Not in track" : "Mauvaise voie",
+  "No Data" : "Aucune Données",
+  "Please select region" : "Selectionner la region",
 
   "Name":"prénom",
   "Weight": "Poids",

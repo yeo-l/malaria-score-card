@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DataService} from '../services/data.service';
 import {MalariaDataStoreModel} from '../models/malaria-data-store-model';
-import {DhisService} from '../services/dhis.service';
 import * as jsPDF from 'jspdf';
 
 @Component({
@@ -11,11 +10,11 @@ import * as jsPDF from 'jspdf';
 })
 export class ScoreComponent implements OnInit {
   @ViewChild('htmlData') htmlData: ElementRef;
-  dates: any;
   dataStore: MalariaDataStoreModel;
   regions: any = [{}];
   districts: any = [{}];
   facilities: any = [{}];
+  choisePlay: string;
   chws: any = [{}];
   selectedRegion: string;
   selectedDistrict: string;
@@ -23,18 +22,12 @@ export class ScoreComponent implements OnInit {
   elementName: {} = {};
   regionDataByDistrict: string[][] = [];
   regionDataHeaders: any = [];
-  regionInGray = 0;
-  regionInRed = 0;
-  regionInGreen = 0;
-  regionInYellow = 0;
-  districtInGray = 0;
-  districtInRed = 0;
-  districtInGreen = 0;
-  districtInYellow = 0;
-  facilityInGray = 0;
-  facilityInRed = 0;
-  facilityInGreen = 0;
-  facilityInYellow = 0;
+  regionInGray = 0; regionInRed = 0;
+  regionInGreen = 0; regionInYellow = 0;
+  districtInGray = 0; districtInRed = 0;
+  districtInGreen = 0; districtInYellow = 0;
+  facilityInGray = 0; facilityInRed = 0;
+  facilityInGreen = 0; facilityInYellow = 0;
   regionDataByDistrictPeriod: string[][] = [];
   regionDataHeadersByPeriod: any = [];
   districtDataByFacility: string[][] = [];
@@ -45,7 +38,10 @@ export class ScoreComponent implements OnInit {
   facilityDataHeaders: any = [];
   facilityDataByChwPeriod: string[][] = [];
   facilityDataHeadersByPeriod: any = [];
-  constructor( private dataSeries: DataService, private dhisService: DhisService) { }
+  selectedRegionName: string;
+  selectedDistrictName: string;
+  selectedFacilityName: string;
+  constructor( private dataSeries: DataService) { }
 
 
   ngOnInit(): void {
@@ -83,6 +79,7 @@ export class ScoreComponent implements OnInit {
     const params: string[] = ['fields=id,name&filter=level:eq:' + this.dataStore.orgUnitLevel[0].region];
     this.dataSeries.loadOrganisationUnits(params).subscribe( (OURegion: any) => {
       this.regions = OURegion.organisationUnits;
+      console.log(this.regions);
     });
   }
   getOrgUnitDistrict(){
@@ -127,7 +124,7 @@ export class ScoreComponent implements OnInit {
         this.facilityInGreen = 0;
         this.facilityInGray = 0;
         this.facilityInYellow = 0;
-        this.facilityInRed = 0;
+        this.facilityInRed   = 0;
         for (let i = 0; i < rows.length; i++){
           const columns = rows[i];
           let count = 0;
@@ -160,6 +157,12 @@ export class ScoreComponent implements OnInit {
         }
       });
       this.getFacilityDataByOrgUnitFilter();
+      this.getDistrictDataByOrgUnitFilter();
+      this.facilities.forEach(facility => {
+        if (facility.id === this.selectedFacility){
+          this.selectedFacilityName = facility.name;
+        }
+      });
     }
   }
   getDistrictDataByPeriodFilter(){
@@ -208,6 +211,11 @@ export class ScoreComponent implements OnInit {
       });
     }
     this.getDistrictDataByOrgUnitFilter();
+    this.districts.forEach(district => {
+      if (district.id === this.selectedDistrict){
+        this.selectedDistrictName = district.name;
+      }
+    });
   }
   getRegionDataByPeriodFilter(){
     const levelR: string = this.dataStore.orgUnitLevel[0].district;
@@ -215,6 +223,7 @@ export class ScoreComponent implements OnInit {
     if (dx !== null){
       this.dataSeries.getDataByPeriodFilter(this.selectedRegion, dx, levelR).subscribe( (data: any) => {
         const rows = data.rows;
+        console.log(data);
         const headers = data.headers;
         this.regionDataByDistrict = [];
         this.regionDataHeaders = [];
@@ -246,7 +255,7 @@ export class ScoreComponent implements OnInit {
 
               if (isNaN(parseFloat(columns[j]))){
                 this.regionInGray ++;
-               // console.log(parseFloat(columns[j]));
+                // console.log(parseFloat(columns[j]));
               }
               if (parseFloat(columns[j]) < 70 && parseFloat(columns[j]) >= 40){
                 this.regionInYellow ++;
@@ -258,6 +267,11 @@ export class ScoreComponent implements OnInit {
       });
     }
     this.getRegionDataByOrgUnitFilter();
+    this.regions.forEach(region => {
+      if (region.id === this.selectedRegion){
+        this.selectedRegionName = region.name;
+      }
+    });
   }
   getDistrictDataByOrgUnitFilter(){
     const dx = this.getDimensionDx();

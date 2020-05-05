@@ -3,9 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {DataService} from '../services/data.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MalariaDataStoreModel} from "../models/malaria-data-store-model";
-import {NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
-import {merge, Observable, Subject} from "rxjs";
-import {debounceTime, distinctUntilChanged, filter, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-configuration',
@@ -110,7 +107,7 @@ export class ConfigurationComponent implements OnInit {
 
   cancelEdit(){
     this.editId = '-1';
-    this.elementsBoard =[[]];
+    this.elementsBoard = [[]];
     this.createEmptyElement();
     this.elements = {};
   }
