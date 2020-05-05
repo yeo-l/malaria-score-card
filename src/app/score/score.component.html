@@ -1,112 +1,67 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label></label>
-    </div>
-    <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-<!--      <label>{{'period'|translate}}</label>-->
-      <app-periode-filter></app-periode-filter>
-    </div>
-    <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-<!--      <label>{{"search dashbord"|translate}}</label>-->
-      <input
-        tourAnchor="home.search"
-        type="search"
-        class="form-control"
-        placeholder="{{'Search Malaria score card by name'|translate}}">
-    </div>
-  </div>
-</div>
-<hr/>
-<div class="container-fluid mt-3">
-  <div class="card card-chart">
-    <div class="card">
-      <div class="card-header">
-        <div class="row">
-          <div class="col-md-6"><h1 class="card-title">{{"Region score card"|translate}} </h1></div>
-          <div class="col-md-6 text-left">
-            <select class="dropdown-toggle form-control">
-              <option>{{"select Region" |translate}}</option>
-              <option value="{{ouRegion.id}}" *ngFor="let ouRegion of regions">{{ouRegion.name}}</option>
-            </select>
-          </div>
+<!--<div class="container-fluid">-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-4 col-xs-12" style="margin-top: 14px">-->
+<!--      <label></label>-->
+<!--    </div>-->
+<!--    <div class="col-md-4 col-xs-12" style="margin-top: 14px">-->
+<!--&lt;!&ndash;      <label>{{'period'|translate}}</label>&ndash;&gt;-->
+<!--      <app-periode-filter></app-periode-filter>-->
+<!--    </div>-->
+<!--    <div class="col-md-4 col-xs-12" style="margin-top: 14px">-->
+<!--&lt;!&ndash;      <label>{{"search dashbord"|translate}}</label>&ndash;&gt;-->
+<!--      <input-->
+<!--        tourAnchor="home.search"-->
+<!--        type="search"-->
+<!--        class="form-control"-->
+<!--        placeholder="{{'Search Malaria score card by name'|translate}}">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<hr/>-->
+<div class="container-fluid mt-5">
+  <div class="card card-chart" style="background-color: #f4f3ef" id="regionCard">
+    <div class="card-header" id="cardHeader">
+      <div class="row">
+        <div class="col-md-4"><h1 class="card-title">{{"Region score card"|translate}} </h1></div>
+        <label class="justify-content-center mt-1">Please select region:</label>
+        <ng-select
+          [items]="regions"
+          bindLabel="name"
+          bindValue="id"
+          class=" col-md-4"
+          [(ngModel)]="selectedRegion">
+        </ng-select>
+        <div class="col-md-1 text-left">
+          <button class="btn btn-danger" (click)="getRegionDataByPeriodFilter()">{{"view"|translate}}</button>
+        </div>
+        <div class="col-md-2 ml-sm-3">
+          <button class="btn" printSectionId="regionCard" ngxPrint [useExistingCss]="true" styleSheetFile="./app.component.css"><i class="fa fa-print fa-2x"></i></button>
+          <button><i class="fa fa-download fa-2x ml-3" (click)="downloadPDF()"></i></button>
         </div>
       </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card card-chart">
-              <div class="card-header justify-content-center text-center">
-                <h1 class="card-title">{{"Region scorecard table"|translate}} </h1>
-              </div>
-            </div>
-            <div class="card-body">
-              <table class="table table-bordered">
+    </div>
+    <div class="row mt-3" >
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header justify-content-center text-center">
+            <div class="card-title"><h2>{{selectedRegion }}{{"score card table"|translate}}</h2></div>
+          </div>
+          <div class="card-body ">
+            <div class="row" id="htmlData" #htmlData>
+              <table class="table table-bordered table-responsive">
                 <thead>
                 <tr>
-                  <th></th>
-                  <th>District 1</th>
-                  <th>District 2</th>
-                  <th>District 3</th>
-                  <th>District 4</th>
-                  <th>District 5</th>
-                  <th>District 6</th>
-                  <th>District 7</th>
-                  <th>District 8</th>
-                  <th>District 9</th>
-                  <th>District 10</th>
+                  <th *ngFor="let header of regionDataHeaders">{{header}}</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td colspan="12" class="bg-light">Impact indicators</td>
-                </tr>
-                <tr>
-                  <td>  demo.textChange in estimated malaria incidence</td>
-                  <td>69</td>
-                  <td>90</td>
-                  <td>90</td>
-                  <td>20</td>
-                  <td>90</td>
-                  <td>30</td>
-                  <td>90</td>
-                  <td>78</td>
-                  <td>240</td>
-                  <td>40</td>
-                </tr>
-                <tr>
-                  <td>Change in estimated malaria mortality</td>
-                  <td>67</td>
-                </tr>
-                <tr>
-                  <td>Change in estimated malaria cases treated and cured</td>
-                  <td>27</td>
-                </tr>
-                <tr>
-                  <td colspan="12" class="bg-light">Process indicators</td>
-                </tr>
-                <tr>
-                  <td olspan="12">Prevention</td>
-                </tr>
-                <tr>
-                  <td>% of nets distributed</td>
-                </tr>
-                <tr>
-                  <td>% of fever cases tested with RDT</td>
-                </tr>
-                <tr>
-                  <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
-                </tr>
-                <tr>
-                  <td>% pregnant women receiving IPT x 2 only</td>
-                </tr>
-                <tr>
-                  <td>% pregnant women receiving IPT x 3</td>
+                <tr *ngFor="let row of regionDataByDistrict">
+                  <td class="{{i == 0 ? '' : ( column == '' ? 'bg-gray': (column >= 70 ? 'bg-green': (column <= 39 ? 'bg-red': 'bg-yellow')))}} align-middle" *ngFor="let column of row; let i = index">{{column}}</td>
                 </tr>
                 </tbody>
               </table>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" style="background-color: transparent">
               <div class="legend">
                 <i class="fa fa-square text-success"></i> Achieved
                 <i class="fa fa-square text-warning"></i> progress
@@ -115,79 +70,44 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">{{"Regions scorecard table by time"|translate}}</h5>
-              </div>
-              <div class="card-body ">
-                <div class="row">
-                  <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                      <th></th>
-                      <th>janvier 2020</th>
-                      <th>fevrier 2020</th>
-                      <th>mars 2020</th>
-                      <th>Avril 2020</th>
-                      <th>mai 2020</th>
-                      <th>juin 2020</th>
-                      <th>juillet 2020</th>
-                      <th>aout 2020</th>
-                      <th>septembre 2020</th>
-                      <th>octobre 2020</th>
-                      <th>novembre 2020</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td colspan="12" class="bg-light">Impact indicators</td>
-                    </tr>
-                    <tr>
-                      <td>Change in estimated malaria incidence</td>
-                    </tr>
-                    <tr>
-                      <td>Change in estimated malaria mortality</td>
-                    </tr>
-                    <tr>
-                      <td>Change in estimated malaria cases treated and cured</td>
-                    </tr>
-                    <tr>
-                      <td colspan="12" class="bg-light">Process indicators</td>
-                    </tr>
-                    <tr>
-                      <td olspan="12">Prevention</td>
-                    </tr>
-                    <tr>
-                      <td>% of nets distributed</td>
-                    </tr>
-                    <tr>
-                      <td>% of fever cases tested with RDT</td>
-                    </tr>
-                    <tr>
-                      <td>% pregnant women provided IPTp at more than 12 week gestational age</td>
-                    </tr>
-                    <tr>
-                      <td>% pregnant women receiving IPT x 2 only</td>
-                    </tr>
-                    <tr>
-                      <td>% pregnant women receiving IPT x 3</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="card-footer ">
-                  <div class="legend">
-                    <i class="fa fa-square text-success"></i> Achieved
-                    <i class="fa fa-square text-warning"></i> progress
-                    <i class="fa fa-square text-danger"></i> Not in track
-                    <i class="fa fa-square text-gray"></i> No Data
-                  </div>
-                </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header justify-content-center text-center" style="background-color: transparent">
+            <div class="card-title"><h2>{{"Regions scorecard table by time"|translate}}</h2></div>
+          </div>
+          <div class="card-body ">
+            <div class="row">
+              <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                  <th *ngFor="let headerP of regionDataHeadersByPeriod">{{headerP}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let rowP of regionDataByDistrictPeriod">
+                  <td class="{{i == 0 ? '' : ( columnP == '' ? 'bg-gray': (columnP >= 70 ? 'bg-green': (columnP <= 39 ? 'bg-red': 'bg-yellow')))}}" *ngFor="let columnP of rowP; let i = index">{{columnP}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer" style="background-color: transparent">
+              <div class="legend">
+                <i class="fa fa-square text-success"></i> Achieved
+                <i class="fa fa-square text-warning"></i> progress
+                <i class="fa fa-square text-danger"></i> Not in track
+                <i class="fa fa-square text-gray"></i> No Data
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-6">
         <div class="card ">
           <div class="card-header ">
             <h5 class="card-title"> Regions statistics</h5>
@@ -196,42 +116,95 @@
             <div class="row">
               <div class="card card-stats">
                 <div class="card-body ">
-                  <div class="card-header" style="background-color: red"></div>
-                  <div class="numbers">
-                    <p class="card-category">Total Region</p>
-                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  <div class="card-header bg-red"></div>
+                  <div class="numbers text-center">
+                    <p class="card-category">Total District in Red</p>
+                    <p class="card-title" style="font-size: xx-large">{{regionInRed}}<p>
                   </div>
                 </div>
               </div>
               <div class="card card-stats">
                 <div class="card-body ">
-                  <div class="card-header" style="background-color: yellow"></div>
-                  <div class="numbers">
-                    <p class="card-category">Total Region</p>
-                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  <div class="card-header bg-yellow"></div>
+                  <div class="numbers text-center">
+                    <p class="card-category">Total District in yellow</p>
+                    <p class="card-title" style="font-size: xx-large">{{regionInYellow}}<p>
                   </div>
                 </div>
               </div>
               <div class="card card-stats">
                 <div class="card-body ">
-                  <div class="card-header" style="background-color: green"></div>
-                  <div class="numbers">
-                    <p class="card-category">Total Region</p>
-                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  <div class="card-header bg-green"></div>
+                  <div class="numbers text-center">
+                    <p class="card-category">Total District in green</p>
+                    <p class="card-title" style="font-size: xx-large">{{regionInGreen}}<p>
                   </div>
                 </div>
               </div>
               <div class="card card-stats">
                 <div class="card-body ">
-                  <div class="card-header" style="background-color: darkgray"></div>
-                  <div class="numbers">
-                    <p class="card-category">Total Region</p>
-                    <p class="card-title" style="font-size: xx-large">3456<p>
+                  <div class="card-header bg-gray"></div>
+                  <div class="numbers text-center">
+                    <p class="card-category">Total District in gray</p>
+                    <p class="card-title" style="font-size: xx-large">{{regionInGray}}<p>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card-footer ">
+          </div>
+          <div class="card-footer" style="background-color: transparent">
+            <div class="legend">
+              <i class="fa fa-square text-success"></i> Achieved
+              <i class="fa fa-square text-warning"></i> progress
+              <i class="fa fa-square text-danger"></i> Not in track
+              <i class="fa fa-square text-gray"></i> No Data
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr/>
+<div class="container-fluid mt-3">
+  <div class="card card-chart" style="background-color: #f4f3ef" id="DistrictCard">
+    <div class="card-header" id="cardDistrict">
+      <div class="row">
+        <div class="col-md-4"><h1 class="card-title">{{"District score card"|translate}} </h1></div>
+        <ng-select
+          [items]="districts"
+          bindLabel="name"
+          bindValue="id"
+          class=" col-md-4"
+          [(ngModel)]="selectedDistrict">
+        </ng-select>
+        <div class="col-md-2 text-left">
+          <button class="btn btn-danger" (click)="getDistrictDataByPeriodFilter()">{{"view"|translate}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header justify-content-center text-center" style="background-color: transparent">
+            <div class="card-title"><h2>{{"score card table"|translate}}</h2></div>
+          </div>
+          <div class="card-body ">
+            <div class="row">
+              <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                  <th *ngFor="let headerD of districtDataHeaders">{{headerD}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let rowDf of districtDataByFacility">
+                  <td class="{{i == 0 ? '' : ( columnDf == '' ? 'bg-gray': (columnDf >= 70 ? 'bg-green': (columnDf <= 39 ? 'bg-red': 'bg-yellow')))}} align-middle" *ngFor="let columnDf of rowDf; let i = index">{{columnDf}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer" style="background-color: transparent">
               <div class="legend">
                 <i class="fa fa-square text-success"></i> Achieved
                 <i class="fa fa-square text-warning"></i> progress
@@ -243,260 +216,229 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-<hr/>
-<div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-title">District scorecard table</h5>
-        </div>
-        <div class="card-body">
-          <canvas id="speedssChart" width="400" height="100">
-          </canvas>
-        </div>
-        <div class="card-footer">
-          <div class="legend">
-            <i class="fa fa-square text-success"></i> Achieved
-            <i class="fa fa-square text-warning"></i> progress
-            <i class="fa fa-square text-danger"></i> Not in track
-            <i class="fa fa-square text-gray"></i> No Data
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header justify-content-center text-center" style="background-color: transparent">
+            <div class="card-title"><h2>{{"Regions scorecard table by time"|translate}}</h2></div>
           </div>
-        </div>
-      </div>
-      <div class="card ">
-        <div class="card-header ">
-          <h5 class="card-title"> Districts Statistics</h5>
-        </div>
-        <div class="card-body ">
-          <div class="row">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: red"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
+          <div class="card-body ">
+            <div class="row">
+              <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                  <th  *ngFor="let headerDP of regionDataHeadersByPeriod">{{headerDP}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let rowDp of districtDataByDistrictPeriod">
+                  <td class="{{i == 0 ? '' : ( columnDp == '' ? 'bg-gray': (columnDp >= 70 ? 'bg-green': (columnDp <= 39 ? 'bg-red': 'bg-yellow')))}} align-middle" *ngFor="let columnDp of rowDp; let i = index">{{columnDp}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: yellow"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
+            <div class="card-footer" style="background-color: transparent">
+              <div class="legend">
+                <i class="fa fa-square text-success"></i> Achieved
+                <i class="fa fa-square text-warning"></i> progress
+                <i class="fa fa-square text-danger"></i> Not in track
+                <i class="fa fa-square text-gray"></i> No Data
               </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: green"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: darkgray"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-square text-success"></i> Achieved
-              <i class="fa fa-square text-warning"></i> progress
-              <i class="fa fa-square text-danger"></i> Not in track
-              <i class="fa fa-square text-gray"></i> No Data
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card ">
-        <div class="card-header ">
-          <h5 class="card-title"> Districts scorecard table by time</h5>
-        </div>
-        <div class="card-body ">
-          <div class="row">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: red"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
+    <div class="row">
+        <div class="col-md-6">
+          <div class="card ">
+            <div class="card-header ">
+              <h5 class="card-title"> facility statistics</h5>
+            </div>
+            <div class="card-body ">
+              <div class="row">
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="card-header bg-red"></div>
+                    <div class="numbers">
+                      <p class="card-category">Total facility in red</p>
+                      <p class="card-title" style="font-size: xx-large">{{districtInRed}}<p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="card-header bg-yellow"></div>
+                    <div class="numbers">
+                      <p class="card-category">Total Facility in yellow</p>
+                      <p class="card-title" style="font-size: xx-large">{{districtInYellow}}<p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="card-header bg-green"></div>
+                    <div class="numbers">
+                      <p class="card-category">Total Facility in green</p>
+                      <p class="card-title" style="font-size: xx-large">{{districtInGreen}}<p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="card-header bg-gray"></div>
+                    <div class="numbers">
+                      <p class="card-category">Total facility in gray</p>
+                      <p class="card-title" style="font-size: xx-large">{{districtInGray}}<p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: yellow"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: green"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: darkgray"></div>
-                <div class="numbers">
-                  <p class="card-category">Total District</p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
+            <div class="card-footer" style="background-color: transparent">
+              <div class="legend">
+                <i class="fa fa-square text-success"></i> Achieved
+                <i class="fa fa-square text-warning"></i> progress
+                <i class="fa fa-square text-danger"></i> Not in track
+                <i class="fa fa-square text-gray"></i> No Data
               </div>
             </div>
           </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-square text-success"></i> Achieved
-              <i class="fa fa-square text-warning"></i> progress
-              <i class="fa fa-square text-danger"></i> Not in track
-              <i class="fa fa-square text-gray"></i> No Data
-            </div>
-          </div>
         </div>
-      </div>
     </div>
   </div>
 </div>
 <hr/>
 <div class="container-fluid mt-3">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-title">Facility scorecard table</h5>
-        </div>
-        <div class="card-body">
-          <canvas width="400" height="100">
-          </canvas>
-        </div>
-        <div class="card-footer">
-          <div class="legend">
-            <i class="fa fa-square text-success"></i> Achieved
-            <i class="fa fa-square text-warning"></i> progress
-            <i class="fa fa-square text-danger"></i> Not in track
-            <i class="fa fa-square text-gray"></i> No Data
-          </div>
+  <div class="card card-chart" style="background-color: #f4f3ef">
+    <div class="card-header" id="cardFacility">
+      <div class="row">
+        <div class="col-md-4"><h1 class="card-title">{{"Region score card"|translate}} </h1></div>
+        <ng-select
+          [items]="facilities"
+          bindLabel="name"
+          bindValue="id"
+          class=" col-md-4"
+          [(ngModel)]="selectedFacility">
+        </ng-select>
+        <div class="col-md-2 text-left">
+          <button class="btn btn-danger" (click)="getFacilityDataByPeriodFilter()">{{"view"|translate}}</button>
         </div>
       </div>
-      <div class="card ">
-        <div class="card-header ">
-          <h5 class="card-title"> Facility Statistics</h5>
-        </div>
-        <div class="card-body ">
-          <div class="row">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: red"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: yellow"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: green"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: darkgray"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
-                </div>
-              </div>
-            </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header justify-content-center text-center" style="background-color: transparent">
+            <div class="card-title"><h2>{{"score card table"|translate}}</h2></div>
           </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-square text-success"></i> Achieved
-              <i class="fa fa-square text-warning"></i> progress
-              <i class="fa fa-square text-danger"></i> Not in track
-              <i class="fa fa-square text-gray"></i> No Data
+          <div class="card-body ">
+            <div class="row">
+              <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                  <th *ngFor="let headerF of facilityDataHeaders">{{headerF}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let rowFD of facilityDataByCommunity">
+                  <td class="{{i == 0 ? '' : ( columnFp == '' ? 'bg-gray': (columnFp >= 70 ? 'bg-green': (columnFp <= 39 ? 'bg-red': 'bg-yellow')))}} align-middle" *ngFor="let columnFp of rowFD; let i = index">{{columnFp}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer" style="background-color: transparent">
+              <div class="legend">
+                <i class="fa fa-square text-success"></i> Achieved
+                <i class="fa fa-square text-warning"></i> progress
+                <i class="fa fa-square text-danger"></i> Not in track
+                <i class="fa fa-square text-gray"></i> No Data
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card ">
-        <div class="card-header ">
-          <h5 class="card-title"> Facility scorecard table by time</h5>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header justify-content-center text-center" style="background-color: transparent">
+            <div class="card-title"><h2>{{"Regions scorecard table by time"|translate}}</h2></div>
+          </div>
+          <div class="card-body ">
+            <div class="row">
+              <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                  <th *ngFor="let headerFP of facilityDataHeadersByPeriod">{{headerFP}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let rowFP of facilityDataByCommunity">
+                  <td class="{{i == 0 ? '' : ( columnFpe == '' ? 'bg-gray': (columnFpe >= 70 ? 'bg-green': (columnFpe <= 39 ? 'bg-red': 'bg-yellow')))}} align-middle" *ngFor="let columnFpe of rowFP; let i = index">{{columnFpe}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer" style="background-color: transparent">
+              <div class="legend">
+                <i class="fa fa-square text-success"></i> Achieved
+                <i class="fa fa-square text-warning"></i> progress
+                <i class="fa fa-square text-danger"></i> Not in track
+                <i class="fa fa-square text-gray"></i> No Data
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-body ">
-          <div class="row">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: red"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
+      </div>
+    </div>
+    <div class="row-mt-3">
+      <div class="col-md-6">
+        <div class="card ">
+          <div class="card-header ">
+            <h5 class="card-title"> Community statistics</h5>
+          </div>
+          <div class="card-body ">
+            <div class="row">
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header bg-red"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total chw in red</p>
+                    <p class="card-title" style="font-size: xx-large">{{facilityInRed}}<p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: yellow"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header bg-yellow"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total chw in yellow</p>
+                    <p class="card-title" style="font-size: xx-large">{{facilityInYellow}}<p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: green"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header bg-green"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total chw in green</p>
+                    <p class="card-title" style="font-size: xx-large">{{facilityInGreen}}<p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="card-header" style="background-color: darkgray"></div>
-                <div class="numbers">
-                  <p class="card-category">Total Facility </p>
-                  <p class="card-title" style="font-size: xx-large">3456<p>
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="card-header bg-gray"></div>
+                  <div class="numbers">
+                    <p class="card-category">Total chw in gray</p>
+                    <p class="card-title" style="font-size: xx-large">{{facilityInGray}}<p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card-footer ">
+          <div class="card-footer" style="background-color: transparent">
             <div class="legend">
               <i class="fa fa-square text-success"></i> Achieved
               <i class="fa fa-square text-warning"></i> progress

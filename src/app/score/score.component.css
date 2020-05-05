@@ -1,0 +1,43 @@
+
+/*table {*/
+/*  display:block;*/
+/*  max-height:500px;*/
+/*  overflow-y:auto;*/
+/*}*/
+
+#cardHeader{
+  border-color: #333;
+  background-color: #204d74;
+  color: #fff;
+}
+#cardDistrict{
+  border-color: #333;
+  background-color: #204d74;
+  color: #fff;
+}
+#cardFacility{
+  border-color: #333;
+  background-color: #204d74;
+  color: #fff;
+}
+.bg-gray{
+  background-color: darkgray;
+  color: white;
+  text-align: center;
+}
+.bg-green{
+  background-color: #05c46b;
+  color: white;
+  text-align: center;
+}
+.bg-red{
+  background-color: #ff3f34;
+  color: white;
+  text-align: center;
+}
+.bg-yellow{
+  background-color: #ffdd59;
+  color: black;
+  text-align: center;
+}
+

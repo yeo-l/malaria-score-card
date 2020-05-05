@@ -19,6 +19,7 @@ import {TreeviewModule} from 'ngx-treeview';
 import {DndModule} from 'ng2-dnd';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from "@ng-select/ng-select";
+import {NgxPrintModule} from 'ngx-print';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -34,7 +35,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   imports: [
     BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxDhis2MenuModule,
-    NgSelectModule,
+    NgSelectModule, NgxPrintModule,
     BrowserAnimationsModule, TreeviewModule.forRoot(),
     NgxDhis2HttpClientModule.forRoot({
       namespace: 'malariaScoreCard',

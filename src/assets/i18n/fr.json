@@ -119,7 +119,7 @@
   "Region scorecard table": "tableau score card de la region",
   "search dashbord": "Recherche Tableau de bord",
   "Search Malaria score card by name": "Recherche le score card malaria par nom",
-  "Regions scorecard table by time": "tableau score card des regions periodique",
+  "scorecard table by time": "tableau score card des regions periodique",
   "Mapping dhis oranit-unit level": "Mapper le niveau des unités organisations dhis",
   "Mapping dhis data elements": "Mapper les elements de données dhis",
   "Group": "Groupe",
@@ -132,6 +132,8 @@
   "CHW": "Communautaire",
   "Region score card": "Fiche d'evaluation des regions",
   "select Region": "Selection de la region",
+  "view": "Voir",
+  "score card table": "Tableau de fiche d'évaluation",
 
   "Name":"prénom",
   "Weight": "Poids",

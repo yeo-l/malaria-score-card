@@ -22,7 +22,7 @@ export class ConfigurationComponent implements OnInit {
   editId: any = '-1';
   elements: {} = {};
   elementList: [{}] = [{}];
-  elementsBoard:[[]]= [[]];
+  elementsBoard: [[]] = [[]];
 
   // items: FormArray;
    editing: boolean = false;
