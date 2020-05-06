@@ -54,4 +54,13 @@ export class DataService {
   update(dataStore: MalariaDataStoreModel) {
     return this.httpClient.put(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator', dataStore);
   }
+
+  loadDataPeriodFilter(dx: string, orgUnitId: string, subLevel: string){
+    return this.httpClient.get(`${SERVER_API_URL}/analytics.json?dimension=dx:${dx};dimension=ou:${orgUnitId};LEVEL-${subLevel}&displayProperty=NAME&showHierarchy=true&ignoreLimit=true&tableLayout=true&columns=ou&rows=dx;`)
+  }
+
+  loadDataOrgUnitFilter(dx: string, orgUnitId: string, subLevel: string){
+    return this.httpClient.get(`${SERVER_API_URL}/analytics.json?dimension=dx:${dx};dimension=ou:${orgUnitId};LEVEL-${subLevel}&displayProperty=NAME&showHierarchy=true&ignoreLimit=true&tableLayout=true&columns=pe&rows=dx;`)
+  }
+
 }
