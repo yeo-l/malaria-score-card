@@ -139,6 +139,13 @@
   "Not in track" : "Mauvaise voie",
   "No Data" : "Aucune Données",
   "Please select region" : "Selectionner la region",
+  "Region Level": "Niveau Region",
+  "District Level": "Niveau District",
+  "Facility Level": "Niveau Etablissement",
+  "Community Level": "Niveau Communautaire",
+  "Mapping DHIS organisation unit level": "Correspondance des unités d'organisation",
+  "Mapping DHIS Data Elements / Indicators": "Correspondance DHIS des Elements de données / Indicateurs",
+  "Data Element / Indicator": "Elements de données / Indicateurs",
 
   "Name":"prénom",
   "Weight": "Poids",

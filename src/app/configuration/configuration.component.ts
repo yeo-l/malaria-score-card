@@ -27,32 +27,33 @@ export class ConfigurationComponent implements OnInit {
   successMessage = '';
 
   // items: FormArray;
-   editing: boolean = false;
-   loading:boolean = false;
+  editing: boolean = false;
+  loading:boolean = false;
+  groupObjectName: {} = {};
 
   constructor( private loadData: HttpClient, private dataSeries: DataService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getIndicatorDataStore();
+    this.createDataElementObject();
+    this.createIndicatorObject();
+    this.createGroupObject();
     this._success.subscribe(message => this.successMessage = message);
     this._success.pipe(
       debounceTime(5000)
     ).subscribe(() => this.successMessage = '');
   }
-
   async getOrgUnitUnitLevel(): Promise<void> {
     const params: string[] = ['fields=name,level'];
     await this.dataSeries.loadMetaData('organisationUnitLevels', params).subscribe((levels: any) => {
       this.orgUnitLevels = levels.organisationUnitLevels;
     });
   }
-
   createEmptyElement() {
     for (let i = 0; i < this.dataStore.indicators.length; i++) {
       this.elementList.push({});
     }
   }
-
   editField(val){
     this.editing = true;
     this.editId = val;
@@ -75,7 +76,6 @@ export class ConfigurationComponent implements OnInit {
   saveIndicator(){
     this.modeForm = false;
   }
-
   saveDataStore(){
     for (let i = 0; i < this.dataStore.indicators.length; i++) {
       if (this.dataStore.indicators[i]) {
@@ -107,17 +107,14 @@ export class ConfigurationComponent implements OnInit {
     const params = ['fields=id,name'];
     this.elementsBoard = [[]];
     await this.dataSeries.loadIndicators(params).subscribe((data: any) => {
-      // console.log(data);
       this.elementsBoard[index] = data.indicators;
       data.indicators.forEach((indicator:any) => {
         this.elements[indicator.id] = indicator.name;
         this.elementList[index] = this.elements;
-        this.indicatorObjectName[indicator.id] = indicator.name;
       });
       if (this.elements && this.elementList && this.indicatorObjectName) {
         this.loading = false;
       }
-      //console.log(this.indicatorObjectName);
     });
   }
   async getDataElements(index: number) {
@@ -125,19 +122,40 @@ export class ConfigurationComponent implements OnInit {
     const params = ['fields=id,name'];
     this.elementsBoard = [[]];
     await this.dataSeries.loadDataElements(params).subscribe((data: any) => {
-      //console.log(data);
       this.elementsBoard[index] = data.dataElements;
       data.dataElements.forEach((de: any) => {
         this.elements[de.id] = de.name;
         this.elementList[index] = this.elements;
-        this.dataElementObjectName[de.id] = de.name;
       });
       if (this.elements && this.elementList && this.indicatorObjectName) {
         this.loading = false;
       }
     });
   }
-
+  createIndicatorObject(){
+    const params = ['fields=id,name'];
+    this.dataSeries.loadIndicators(params).subscribe((data: any) => {
+      data.indicators.forEach((de: any) => {
+        this.indicatorObjectName[de.id] = de.name;
+      });
+    });
+  }
+  createGroupObject(){
+    this.dataSeries.getDataStore().subscribe((data: any) => {
+      data.indicatorGroup.forEach((g: any) => {
+        this.groupObjectName[g.code] = g.groupCode;
+      });
+    });
+  }
+  createDataElementObject(){
+    const params = ['fields=id,name'];
+    this.dataSeries.loadDataElements(params).subscribe((data: any) => {
+      data.dataElements.forEach((de: any) => {
+        this.dataElementObjectName[de.id] = de.name;
+      });
+      console.log('elements Object', this.dataElementObjectName);
+    });
+  }
   loadElement(val, index: number) {
     console.log(val);
     this.elements = {};
