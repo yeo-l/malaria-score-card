@@ -1,8 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DataService} from '../services/data.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {MalariaDataStoreModel} from "../models/malaria-data-store-model";
+import {Subject} from "rxjs";
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-configuration',
@@ -19,37 +21,24 @@ export class ConfigurationComponent implements OnInit {
   editId: any = '-1';
   elements: {} = {};
   elementList: [{}] = [{}];
-  elementsBoard: [[]] = [[]];
+  elementsBoard:[[]]= [[]];
+  staticAlertClosed = false;
+  private _success = new Subject<string>();
+  successMessage = '';
 
   // items: FormArray;
    editing: boolean = false;
+   loading:boolean = false;
 
-  // @ViewChild('instance', {static: true}) instance: NgbTypeahead;
-  // focus$ = new Subject<string>();
-  // click$ = new Subject<string>();
   constructor( private loadData: HttpClient, private dataSeries: DataService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getIndicatorDataStore();
+    this._success.subscribe(message => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = '');
   }
-
-  // search = (text$: Observable<string>) => {
-  //   let list:[{}] = [{}];
-  //   Object.keys(this.elementList[parseInt(this.editId)]).forEach((el:{
-  //     value: string;
-  //     key: string;
-  //   }) => {
-  //     list.push({id: el.key, value: el.value});
-  //   });
-  //   const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-  //   const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
-  //   const inputFocus$ = this.focus$;
-  //
-  //   return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-  //     map(term => (term === '' ? this.elementList[parseInt(this.editId)]
-  //       : this.elementList[parseInt(this.editId)].filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-  //   );
-  // };
 
   async getOrgUnitUnitLevel(): Promise<void> {
     const params: string[] = ['fields=name,level'];
@@ -88,7 +77,7 @@ export class ConfigurationComponent implements OnInit {
   }
 
   saveDataStore(){
-    for (let i = 0; i <= this.dataStore.indicators.length; i++) {
+    for (let i = 0; i < this.dataStore.indicators.length; i++) {
       if (this.dataStore.indicators[i]) {
         if (this.dataStore.indicators[i].dhisID){
           if (this.dataStore.indicators[i].type === 'data element') {
@@ -96,6 +85,7 @@ export class ConfigurationComponent implements OnInit {
           } else if (this.dataStore.indicators[i].type === 'indicator') {
             this.dataStore.indicators[i].dhisName = this.indicatorObjectName[(this.dataStore.indicators[i].dhisID)];
           }
+          this._success.next('Data store updated successfully ');
         }
       }
     }
@@ -107,12 +97,13 @@ export class ConfigurationComponent implements OnInit {
 
   cancelEdit(){
     this.editId = '-1';
-    this.elementsBoard = [[]];
+    this.elementsBoard =[[]];
     this.createEmptyElement();
     this.elements = {};
   }
 
   async getIndicators(index: number) {
+    this.loading = true;
     const params = ['fields=id,name'];
     this.elementsBoard = [[]];
     await this.dataSeries.loadIndicators(params).subscribe((data: any) => {
@@ -123,10 +114,14 @@ export class ConfigurationComponent implements OnInit {
         this.elementList[index] = this.elements;
         this.indicatorObjectName[indicator.id] = indicator.name;
       });
+      if (this.elements && this.elementList && this.indicatorObjectName) {
+        this.loading = false;
+      }
       //console.log(this.indicatorObjectName);
     });
   }
   async getDataElements(index: number) {
+    this.loading = true;
     const params = ['fields=id,name'];
     this.elementsBoard = [[]];
     await this.dataSeries.loadDataElements(params).subscribe((data: any) => {
@@ -137,6 +132,9 @@ export class ConfigurationComponent implements OnInit {
         this.elementList[index] = this.elements;
         this.dataElementObjectName[de.id] = de.name;
       });
+      if (this.elements && this.elementList && this.indicatorObjectName) {
+        this.loading = false;
+      }
     });
   }
 

@@ -1,95 +1,206 @@
 <div class="container-fluid p-3 border justify-content-center" *ngIf="dataStore">
+  <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = ''">{{ successMessage }}</ngb-alert>
   <div class="card">
     <div class="card-header" >
-      <div class="card-title mb-0"><h4 class="mb-0">Mapping dhis oranit-unit level</h4></div>
+      <div class="card-title mb-0"><h4 class="mb-0">Mapping DHIS organisation unit level</h4></div>
     </div>
     <div class="card-body m-0">
-      <div class="col-md-12">
-<!--        <form action="" class="form-inline">-->
-          <div class="row" *ngFor="let ouLevel of dataStore.orgUnitLevel">
-            <label class="font-weight-bold align-middle col-md-1 text-right" for="region">Region</label>
-            <select id="region" class="form-control col-md-1" [(ngModel)]="ouLevel.region" name="region">
-              <option></option>
-              <option [ngValue]="ol.level" [selected]="ouLevel.region == ol.level" value="{{ol.level}}"
-                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
-            </select>
-            <label class="font-weight-bold col-md-1 mt-2 text-right" for="district">District</label>
-            <select id="district" class="form-control col-md-1" [(ngModel)]="ouLevel.district" name="district">
-              <option></option>
-              <option [ngValue]="ol.level" [selected]="ouLevel.district == ol.level" value="{{ol.level}}"
-                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
-            </select>
-            <label class="font-weight-bold col-md-1 mt-2 text-right" for="facility">Facility :</label>
-            <select id="facility" class="form-control col-md-1" [(ngModel)]="ouLevel.facility" name="facility">
-              <option></option>
-              <option [ngValue]="ol.level" [selected]="ouLevel.facility == ol.level" value="{{ol.level}}"
-                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
-            </select>
-            <label for="chw" class="font-weight-bold col-md-1 mt-2 text-right">CHW :</label>
-            <select id="chw" class="form-control col-md-1" [(ngModel)]="ouLevel.chw" name="chw">
-              <option></option>
-              <option [ngValue]="ol.level" [selected]="ouLevel.chw == ol.level" value="{{ol.level}}"
-                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
-            </select>
-            <div class="col-md-2">
-              <button class="btn btn-primary" (click)="saveDataStore()">Save</button>
-            </div>
-          </div>
-<!--        </form>-->
-      </div>
-    </div>
-  </div>
-
-  <div class="card-header text-center" >
-    <div class="card-title"><h4>Mapping dhis data elements</h4></div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="row m-2 p-2 pt-3 pb-3" id="confTableRow">
-        <div class="col-md-1">Group</div>
-        <div class="col-md-5">Indicator</div>
-        <div class="col-md-1">type</div>
-        <div class="col-md-4">Data element</div>
-        <div class="col-md-1">Action</div>
-      </div>
-
-      <div class="row m-2 p-2 bg-light " *ngFor="let indicator of dataStore.indicators; let i = index">
-        <div class="col-md-1">{{indicator.groupCode}}</div>
-        <div class="col-md-5">{{indicator.name}}</div>
-        <div class="col-md-5" (dblclick)="editField(i)">
-          <div class="row" *ngIf="i != editId">
-            <div class="col-md-2 mb-0 align-middle">{{indicator.type | titlecase}}</div>
-            <div class="col-md-10 mb-0">{{indicator.dhisName}}</div>
-          </div>
-          <div class="row" *ngIf="i == editId">
-            <div class="col-md-12">
-              <div class="row align-middle">
-                <select [(ngModel)]="indicator.type" class="col-md-2 form-control mb-0" (ngModelChange)="loadElement($event, i)">
-                  <option value=""></option>
-                  <option value="indicator" [selected]="indicator.type == 'indicator'">Indicator</option>
-                  <option value="data element" [selected]="indicator.type == 'data element'">Data Element</option>
+      <div class="row m-0">
+        <div class="col-md-8 m-0">
+          <table class="table table-borderless w-auto m-0 table-sm">
+            <tbody class="m-0">
+            <tr *ngFor="let ouLevel of dataStore.orgUnitLevel" class="m-0">
+              <td class="align-middle">
+                <label class="font-weight-bold" for="region">Region Level</label>
+              </td>
+              <td class="align-middle">
+                <select id="region" class="form-control" [(ngModel)]="ouLevel.region" name="region">
+                  <option></option>
+                  <option [ngValue]="ol.level" [selected]="ouLevel.region == ol.level" value="{{ol.level}}"
+                          *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
                 </select>
-                <ng-select
-                  [items]="elementsBoard[i]"
-                  bindLabel="name"
-                  bindValue="id"
-                  class="col-md-8"
-                  [(ngModel)]="indicator.dhisID"
-                ></ng-select>
-<!--                <select [(ngModel)]="indicator.dhisID" name="dhisID_{{i}}" class="col-md-8 select2 mat-autocomplete-panel">-->
-<!--                  <option value=""></option>-->
-<!--                  <option value="{{ind.key}}" [selected]="ind.key == indicator.dhisID" *ngFor="let ind of elementList[i] | keyvalue">{{ind.value}}</option>-->
-<!--                </select>-->
-              </div>
-            </div>
-          </div>
+              </td>
+              <td class="align-middle">
+                <label class="font-weight-bold align-middle" for="district">District Level</label>
+              </td>
+              <td class="align-middle">
+                <select id="district" class="form-control" [(ngModel)]="ouLevel.district" name="district">
+                  <option></option>
+                  <option [ngValue]="ol.level" [selected]="ouLevel.district == ol.level" value="{{ol.level}}"
+                          *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
+                </select>
+              </td>
+              <td class="align-middle">
+                <label class="font-weight-bold align-middle" for="facility">Facility Level</label>
+              </td>
+              <td class="align-middle">
+                <select id="facility" class="form-control" [(ngModel)]="ouLevel.facility" name="facility">
+                  <option></option>
+                  <option [ngValue]="ol.level" [selected]="ouLevel.facility == ol.level" value="{{ol.level}}"
+                          *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
+                </select>
+              </td>
+              <td class="align-middle">
+                <label class="font-weight-bold align-middle" for="chw">Community Level</label>
+              </td>
+              <td>
+                <select id="chw" class="form-control" [(ngModel)]="ouLevel.chw" name="chw">
+                  <option></option>
+                  <option [ngValue]="ol.level" [selected]="ouLevel.chw == ol.level" value="{{ol.level}}"
+                          *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>
+                </select>
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="col-md-1 text-center">
-          <button *ngIf="i != editId" class="btn btn-warning" (click)="editField(i)"><i class="fa fa-edit"></i></button>
-          <button *ngIf="i == editId" class="btn btn-success mr-2" (click)="saveDataStore()"><i class="fa fa-save"></i></button>
-          <button *ngIf="i == editId" class="btn btn-danger" (click)="cancelEdit()"><i class="fa fa-times"></i></button>
+        <div class="col-md-4 text-right m-0">
+          <button class="btn btn-primary" (click)="saveDataStore()">Save</button>
         </div>
       </div>
+
+<!--      <div class="row" *ngFor="let ouLevel of dataStore.orgUnitLevel">-->
+<!--        <div class="col-md-12">-->
+          <!--        <form action="" class="form-inline">-->
+<!--          <div class="row">-->
+<!--            <label class="font-weight-bold align-middle col-md-1 text-right mt-2" for="region">Region Level</label>-->
+<!--            <select id="region" class="form-control col-md-1" [(ngModel)]="ouLevel.region" name="region">-->
+<!--              <option></option>-->
+<!--              <option [ngValue]="ol.level" [selected]="ouLevel.region == ol.level" value="{{ol.level}}"-->
+<!--                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>-->
+<!--            </select>-->
+<!--            <label class="font-weight-bold col-md-1 mt-2 text-right" for="district">District Level</label>-->
+<!--            <select id="district" class="form-control col-md-1" [(ngModel)]="ouLevel.district" name="district">-->
+<!--              <option></option>-->
+<!--              <option [ngValue]="ol.level" [selected]="ouLevel.district == ol.level" value="{{ol.level}}"-->
+<!--                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>-->
+<!--            </select>-->
+<!--            <label class="font-weight-bold col-md-1 mt-2 text-right" for="facility">Facility Level</label>-->
+<!--            <select id="facility" class="form-control col-md-1" [(ngModel)]="ouLevel.facility" name="facility">-->
+<!--              <option></option>-->
+<!--              <option [ngValue]="ol.level" [selected]="ouLevel.facility == ol.level" value="{{ol.level}}"-->
+<!--                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>-->
+<!--            </select>-->
+<!--            <label for="chw" class="font-weight-bold col-md-2 mt-2 text-right">Community Level :</label>-->
+<!--            <select id="chw" class="form-control col-md-1" [(ngModel)]="ouLevel.chw" name="chw">-->
+<!--              <option></option>-->
+<!--              <option [ngValue]="ol.level" [selected]="ouLevel.chw == ol.level" value="{{ol.level}}"-->
+<!--                      *ngFor="let ol of orgUnitLevels">{{ol.name}}</option>-->
+<!--            </select>-->
+<!--            <div class="col-md-3 text-right">-->
+<!--              <button class="btn btn-primary" (click)="saveDataStore()">Save</button>-->
+<!--            </div>-->
+<!--          </div>-->
+          <!--        </form>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
+
+  <div class="card mt-1">
+    <div class="card-header" >
+      <div class="card-title"><h4 class="m-0">Mapping DHIS Data Elements / Indicators</h4></div>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th class="w-auto">Group</th>
+          <th class="w-auto">Indicator</th>
+          <th class="w-auto">Type</th>
+          <th class="w-auto">Data Element/Indicator</th>
+          <th class="w-auto">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ind of dataStore.indicators; let  i = index">
+          <td>{{ind.groupCode}}</td>
+          <td>{{ind.name}}</td>
+          <td>
+            <span *ngIf="i != editId">{{ind.type | titlecase}}</span>
+            <select *ngIf="i == editId" [(ngModel)]="ind.type" class="form-control mb-0" (ngModelChange)="loadElement($event, i)">
+              <option value=""></option>
+              <option value="indicator" [selected]="ind.type == 'indicator'">Indicator</option>
+              <option value="data element" [selected]="ind.type == 'data element'">Data Element</option>
+            </select>
+          </td>
+          <td>
+            <span *ngIf="i != editId">{{ind.dhisName}}</span>
+            <ng-select *ngIf="i == editId"
+                       [items]="elementsBoard[i]"
+                       bindLabel="name"
+                       placeholder="Select {{ind.type == 'indicator' ? 'Indicator' : 'Data element'}}"
+                       bindValue="id"
+                       loadingText="Loading"
+                       [(ngModel)]="ind.dhisID">
+            </ng-select>
+            <div class="col-md-1" *ngIf="loading && editId == i">
+              <img src="./assets/img/35.gif" width="35px" alt="loading">
+            </div>
+          </td>
+          <td class="text-center">
+            <button *ngIf="i != editId" class="btn btn-warning" (click)="editField(i)"><i class="fa fa-edit"></i></button>
+            <button *ngIf="i == editId" class="btn btn-success mr-2" (click)="saveDataStore()"><i class="fa fa-save"></i></button>
+            <button *ngIf="i == editId" class="btn btn-danger" (click)="cancelEdit()"><i class="fa fa-times-circle"></i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+<!--    <div class="card-body p-2">-->
+<!--      <div class="row m-0 p-0">-->
+<!--        <div class="col-md-12 m-0">-->
+<!--          <div class="row m-0 p-2 pt-3 pb-3 bg-secondary">-->
+<!--            <div class="col-md-1 bg-secondary">Group</div>-->
+<!--            <div class="col-md-5">Indicator</div>-->
+<!--            <div class="col-md-1">type</div>-->
+<!--            <div class="col-md-4">Data element</div>-->
+<!--            <div class="col-md-1">Action</div>-->
+<!--          </div>-->
+
+<!--          <div class="row m-0 p-2 bg-light " *ngFor="let indicator of dataStore.indicators; let i = index">-->
+<!--            <div class="col-md-1">{{indicator.groupCode}}</div>-->
+<!--            <div class="col-md-5">{{indicator.name}}</div>-->
+
+<!--            <div class="col-md-5" (dblclick)="editField(i)">-->
+<!--              <div class="row" *ngIf="i != editId">-->
+<!--                <div class="col-md-2 mb-0 align-middle">{{indicator.type | titlecase}}</div>-->
+<!--                <div class="col-md-10 mb-0">{{indicator.dhisName}}</div>-->
+<!--              </div>-->
+<!--              <div class="row" *ngIf="i == editId">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="row align-middle">-->
+<!--                    <select [(ngModel)]="indicator.type" class="col-md-2 form-control mb-0" (ngModelChange)="loadElement($event, i)">-->
+<!--                      <option value=""></option>-->
+<!--                      <option value="indicator" [selected]="indicator.type == 'indicator'">Indicator</option>-->
+<!--                      <option value="data element" [selected]="indicator.type == 'data element'">Data Element</option>-->
+<!--                    </select>-->
+<!--                    <ng-select-->
+<!--                      [items]="elementsBoard[i]"-->
+<!--                      bindLabel="name"-->
+<!--                      bindValue="id"-->
+<!--                      class="{{loading ? 'col-md-7': 'col-md-8'}}"-->
+<!--                      [(ngModel)]="indicator.dhisID">-->
+<!--                    </ng-select>-->
+<!--                    <div class="col-md-1" *ngIf="loading">-->
+<!--                      <img src="./assets/img/35.gif" width="35px" alt="loading">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-1 text-center">-->
+<!--              <button *ngIf="i != editId" class="btn btn-warning" (click)="editField(i)"><i class="fa fa-edit"></i></button>-->
+<!--              <button *ngIf="i == editId" class="btn btn-success mr-2" (click)="saveDataStore()"><i class="fa fa-save"></i></button>-->
+<!--              <button *ngIf="i == editId" class="btn btn-danger" (click)="cancelEdit()"><i class="fa fa-times-circle"></i></button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+
+
 </div>

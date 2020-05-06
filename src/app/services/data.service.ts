@@ -30,6 +30,7 @@ export class DataService {
   getOrganisationUnitLevels(){
     return this.httpClient.get(SERVER_API_URL + '/organisationUnitLevels');
   }
+
   save(dataStore: MalariaDataStoreModel): Observable<Object> {
     return this.httpClient.post(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator', dataStore);
   }
@@ -53,16 +54,13 @@ export class DataService {
   update(dataStore: MalariaDataStoreModel) {
     return this.httpClient.put(SERVER_API_URL + '/dataStore/malariaSoreCard/indicator', dataStore);
   }
-  getDataByPeriodFilter(orgUnitId: string, dx: string, lv: string) {
-    return this.httpClient.get(SERVER_API_URL + '/analytics.json?dimension=ou:' + orgUnitId + ';LEVEL-' + lv + '&dimension=dx:' + dx +
-      '&rows=dx&columns=ou&displayProperty=NAME&showHierarchy=true&hideEmptyColumns=true&' +
-      'filter=pe:LAST_12_MONTHS&' +
-      // 'rows=ou;dx&displayProperty=NAME&showHierarchy=true&hideEmptyColumns=true&' +
-      'hideEmptyRows=true&ignoreLimit=true&tableLayout=true');
+
+  loadDataPeriodFilter(dx: string, orgUnitId: string, subLevel: string){
+    return this.httpClient.get(`${SERVER_API_URL}/analytics.json?dimension=dx:${dx};dimension=ou:${orgUnitId};LEVEL-${subLevel}&displayProperty=NAME&showHierarchy=true&ignoreLimit=true&tableLayout=true&columns=ou&rows=dx;`)
   }
-  getDataByOrgUnitFilter(orgUnitId: string, dx: string) {
-    return this.httpClient.get(SERVER_API_URL + '/analytics.json?dimension=pe:LAST_12_MONTHS' + '&dimension=dx:' + dx +
-      '&rows=dx&columns=pe' + '&displayProperty=NAME&showHierarchy=true&hideEmptyColumns=false&' +
-      '&filter=ou:' + orgUnitId + '&hideEmptyRows=true&ignoreLimit=true&tableLayout=true');
+
+  loadDataOrgUnitFilter(dx: string, orgUnitId: string, subLevel: string){
+    return this.httpClient.get(`${SERVER_API_URL}/analytics.json?dimension=dx:${dx};dimension=ou:${orgUnitId};LEVEL-${subLevel}&displayProperty=NAME&showHierarchy=true&ignoreLimit=true&tableLayout=true&columns=pe&rows=dx;`)
   }
+
 }
