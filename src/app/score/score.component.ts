@@ -41,6 +41,8 @@ export class ScoreComponent implements OnInit {
   selectedRegionName: string;
   selectedDistrictName: string;
   selectedFacilityName: string;
+  loadingRegionData: boolean = true;
+  printHovered = false;
   constructor( private dataSeries: DataService) { }
 
 
@@ -75,11 +77,14 @@ export class ScoreComponent implements OnInit {
     // doc.save('text.pdf');
     doc.output('dataurlnewwindow');
   }
+  browserPrint() {
+    window.print();
+  }
   getOrgUnitRegion(){
+    this.loadingRegionData = false;
     const params: string[] = ['fields=id,name&filter=level:eq:' + this.dataStore.orgUnitLevel[0].region];
     this.dataSeries.loadOrganisationUnits(params).subscribe( (OURegion: any) => {
       this.regions = OURegion.organisationUnits;
-      console.log(this.regions);
     });
   }
   getOrgUnitDistrict(){
