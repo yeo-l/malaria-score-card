@@ -21,7 +21,7 @@ export class ConfigurationComponent implements OnInit {
   editId: any = '-1';
   elements: {} = {};
   elementList: [{}] = [{}];
-  elementsBoard:[[]]= [[]];
+  elementsBoard: [[]] = [[]];
   staticAlertClosed = false;
   private _success = new Subject<string>();
   successMessage = '';
@@ -91,7 +91,6 @@ export class ConfigurationComponent implements OnInit {
     }
     this.dataSeries.update(this.dataStore).subscribe(data => {
       this.editId = '-1';
-      console.log(data);
     });
   }
 
@@ -153,7 +152,6 @@ export class ConfigurationComponent implements OnInit {
       data.dataElements.forEach((de: any) => {
         this.dataElementObjectName[de.id] = de.name;
       });
-      console.log('elements Object', this.dataElementObjectName);
     });
   }
   loadElement(val, index: number) {

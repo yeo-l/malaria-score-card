@@ -1,7 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DataService} from '../services/data.service';
 import {MalariaDataStoreModel} from '../models/malaria-data-store-model';
-import * as jsPDF from 'jspdf';
+import {Subject} from 'rxjs';
+import {DataTableDirective} from 'angular-datatables';
+import {dtOptions, dtOptionsExcelPrintButtons} from '../shared/constants';
+import {ExportAsConfig, ExportAsService} from 'ngx-export-as';
 
 @Component({
   selector: 'app-score',
@@ -9,7 +12,12 @@ import * as jsPDF from 'jspdf';
   styleUrls: ['./score.component.css']
 })
 export class ScoreComponent implements OnInit {
-  @ViewChild('htmlData') htmlData: ElementRef;
+ // @ViewChild('htmlData') htmlData: ElementRef;
+ @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = dtOptions;
+  dtTrigger: Subject<any> = new Subject();
+
   dataStore: MalariaDataStoreModel;
   regions: any = [{}];
   districts: any = [{}];
@@ -43,8 +51,14 @@ export class ScoreComponent implements OnInit {
   selectedFacilityName: string;
   loadingRegionData: boolean = true;
   printHovered = false;
-  constructor( private dataSeries: DataService) { }
 
+  exportAsConfig: ExportAsConfig = {
+    type: 'png', // the type you want to download
+    elementIdOrContent: 'table1',
+   // elementId: 'table1', // the id of html/table element
+  }
+
+  constructor( private dataSeries: DataService, private exportAsService: ExportAsService) {}
 
   ngOnInit(): void {
     this.dataSeries.getDataStore().subscribe( ds => {
@@ -59,23 +73,7 @@ export class ScoreComponent implements OnInit {
       this.getOrgUnitChw();
       this.getOrgUnitFacility();
     });
-  }
-  public downloadPDF(): void {
-    const DATA = this.htmlData.nativeElement;
-    const doc = new jsPDF('p', 'pt', 'a4');
 
-    const handleElement = {
-      '#editor'(element, renderer){
-        return true;
-      }
-    };
-    doc.fromHTML(DATA.innerHTML, 15, 15, {
-      width: 300,
-      elementHandlers: handleElement
-    });
-
-    // doc.save('text.pdf');
-    doc.output('dataurlnewwindow');
   }
   browserPrint() {
     window.print();
@@ -269,6 +267,8 @@ export class ScoreComponent implements OnInit {
           }
           this.regionDataByDistrict.push(columnData);
         }
+        console.log('header',  this.regionDataHeaders);
+        console.log('columnd', this.regionDataByDistrict);
       });
     }
     this.getRegionDataByOrgUnitFilter();
@@ -362,5 +362,15 @@ export class ScoreComponent implements OnInit {
         }
       });
     }
+  }
+
+  downImg() {
+    this.exportAsService.save(this.exportAsConfig, 'My File Name').subscribe(() => {
+      // save started
+    });
+    // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+    this.exportAsService.get(this.exportAsConfig).subscribe(content => {
+      console.log(content);
+    });
   }
 }

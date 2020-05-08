@@ -17,7 +17,7 @@
     "default_locale": "en",
     "activities": {
         "dhis": {
-            "href": "../dhis2.jsi.com/dhis/dhis-web-dashboard/"
+            "href": "../../.."
         }
     }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {HttpClient} from '@angular/common/http';
 import {DataService} from './services/data.service';
+import {ExportAsService} from 'ngx-export-as';
 
 
 @Component({
@@ -12,7 +13,8 @@ import {DataService} from './services/data.service';
 export class AppComponent implements OnInit{
   title = 'malaria-score-card';
   langId = 'en';
-  constructor(public translate: TranslateService, private httpClient: HttpClient, private dataSeries: DataService) {
+  constructor(public translate: TranslateService, private httpClient: HttpClient, private dataSeries: DataService,
+              private exportAsService: ExportAsService) {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
     // const browserLang = translate.getBrowserLang();
@@ -30,7 +32,6 @@ export class AppComponent implements OnInit{
     else
       {
         this.langId = 'fr'; }
-    console.log(this.langId);
   }
   uploadDataStore(){
     this.dataSeries.upload().subscribe(data => {

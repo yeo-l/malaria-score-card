@@ -8,18 +8,33 @@
 <!--    </div>-->
     <div class="col-md-4 col-xs-12" style="margin-top: 14px"></div>
     <div class="col-md-4 col-xs-12" style="margin-top: 14px">
-      <label> Selectionner l'affichage que vous desirez: </label>
+      <label>{{"please select the organisational level to be displayed"|translate}}</label>
       <select class="form-control" [(ngModel)]="choisePlay" >
         <option></option>
-        <option value="region">Region</option>
-        <option value="district">District</option>
-        <option value="facility">Facility</option>
+        <option value="region">{{"Region"|translate}}</option>
+        <option value="district">{{"District"|translate}}</option>
+        <option value="facility">{{"Facility"|translate}}</option>
       </select>
 <!--      <div class="col-1"><button class="btn btn-primary" (click)="playScoreCard()"> {{"View"|translate}}</button></div>-->
     </div>
   </div>
 </div>
 <hr/>
+<!--<thead>-->
+<!--<tr>-->
+<!--  <th>Name</th>-->
+<!--  <th>Email</th>-->
+<!--  <th>Website</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr *ngFor="let group of data">-->
+<!--  <td class="bg-green">{{group.name}}</td>-->
+<!--  <td>{{group.email}}</td>-->
+<!--  <td class="bg-red">{{group.website}}</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+
 <div class="container-fluid mt-5" *ngIf="choisePlay == 'region'">
   <div class="card card-chart" style="background-color: #f4f3ef" >
     <div class="card-header" id="cardHeader">
@@ -49,8 +64,7 @@
             class="btn btn-outline-secondary btn-sm pull-right cursor"
             (click)="browserPrint()"
             style="height: 35px;margin-left: 3px"
-            title="{{ 'Print' | translate }}"
-          >
+            title="{{ 'Print' | translate }}">
             <i class="fa fa-print"></i>
             <span *ngIf="printHovered" [translate]="'Print'">Print</span>
           </button>
@@ -63,10 +77,10 @@
       <div class="col-md-12">
         <div class="card" id="regionCard">
           <div class="card-header justify-content-center text-center">
-            <div class="card-title"><h2>{{"Tableau d'évaluation des districtes de la region "|translate}}{{selectedRegionName}} {{" des 12 derniers mois"}}</h2></div>
+            <div class="card-title"><h2>{{"Evaluation table of districts in the "|translate}}{{selectedRegionName}} {{" region over the last 12 months"}}</h2></div>
           </div>
-          <div class="card-body ">
-            <div class="row" id="htmlData" #htmlData>
+          <div class="card-body" id="table1">
+            <div class="row" id="htmlData">
               <table class="table table-bordered table-responsive">
                 <thead>
                 <tr>
@@ -87,6 +101,7 @@
                 <i class="fa fa-square text-danger"></i> {{'Not in track'|translate}}
                 <i class="fa fa-square text-gray"></i> {{"No Data"|translate}}
               </div>
+              <button (click)="downImg()">download img</button>
             </div>
           </div>
         </div>
@@ -96,14 +111,15 @@
       <div class="col-md-12">
         <div class="card ">
           <div class="card-header justify-content-center text-center" style="background-color: transparent">
-            <div class="card-title"><h2>{{"Tableau d'évaluation de la region "|translate}}{{selectedRegionName}} {{" des 12 derniers mois"}}</h2></div>
+            <div class="card-title"><h2>{{" Evaluation table of region "|translate}}{{selectedRegionName}} {{" over the last 12 months"}}</h2></div>
           </div>
           <div class="card-body ">
             <div class="row">
-              <table class="table table-bordered table-responsive">
+              <table class="table table-bordered table-responsive" datatable [dtOptions]="dtOptions">
                 <thead>
                 <tr>
                   <th *ngFor="let headerP of regionDataHeadersByPeriod">{{headerP}}</th>
+<!--                  <th>district</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -115,10 +131,10 @@
             </div>
             <div class="card-footer" style="background-color: transparent">
               <div class="legend">
-                <i class="fa fa-square text-success"></i> Achieved
-                <i class="fa fa-square text-warning"></i> progress
-                <i class="fa fa-square text-danger"></i> Not in track
-                <i class="fa fa-square text-gray"></i> No Data
+                <i class="fa fa-square text-success"></i> {{"Achieved"|translate}}
+                <i class="fa fa-square text-warning"></i> {{"progress"|translate}}
+                <i class="fa fa-square text-danger"></i> {{"Not in track"|translate}}
+                <i class="fa fa-square text-gray"></i> {{"No Data"|translate}}
               </div>
             </div>
           </div>
@@ -129,7 +145,7 @@
       <div class="col-md-6">
         <div class="card ">
           <div class="card-header ">
-            <h5 class="card-title"> Regions statistics</h5>
+            <h5 class="card-title"> {{"Region statistics"|translate}}</h5>
           </div>
           <div class="card-body ">
             <div class="row">
@@ -137,7 +153,7 @@
                 <div class="card-body ">
                   <div class="card-header bg-red"></div>
                   <div class="numbers text-center">
-                    <p class="card-category">Total District in Red</p>
+                    <p class="card-category">{{"Total District in Red"|translate}}</p>
                     <p class="card-title" style="font-size: xx-large">{{regionInRed}}<p>
                   </div>
                 </div>
@@ -146,7 +162,7 @@
                 <div class="card-body ">
                   <div class="card-header bg-yellow"></div>
                   <div class="numbers text-center">
-                    <p class="card-category">Total District in yellow</p>
+                    <p class="card-category">{{"Total District in yellow"|translate}}</p>
                     <p class="card-title" style="font-size: xx-large">{{regionInYellow}}<p>
                   </div>
                 </div>
@@ -155,7 +171,7 @@
                 <div class="card-body ">
                   <div class="card-header bg-green"></div>
                   <div class="numbers text-center">
-                    <p class="card-category">Total District in green</p>
+                    <p class="card-category">{{"Total District in green"|translate}}</p>
                     <p class="card-title" style="font-size: xx-large">{{regionInGreen}}<p>
                   </div>
                 </div>
@@ -164,7 +180,7 @@
                 <div class="card-body ">
                   <div class="card-header bg-gray"></div>
                   <div class="numbers text-center">
-                    <p class="card-category">Total District in gray</p>
+                    <p class="card-category">{{"Total District in gray"|translate}}</p>
                     <p class="card-title" style="font-size: xx-large">{{regionInGray}}<p>
                   </div>
                 </div>
