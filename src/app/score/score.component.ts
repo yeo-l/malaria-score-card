@@ -51,11 +51,36 @@ export class ScoreComponent implements OnInit {
   selectedFacilityName: string;
   loadingRegionData: boolean = true;
   printHovered = false;
+  img1Hovered = false;
+  img2Hovered = false;
+  img3Hovered = false;
+  img4Hovered = false;
+  img5Hovered = false;
+  img6Hovered = false;
 
   exportAsConfig: ExportAsConfig = {
-    type: 'png', // the type you want to download
-    elementIdOrContent: 'table1',
-   // elementId: 'table1', // the id of html/table element
+    type: 'png',
+    elementIdOrContent: 'regionCard',
+  };
+  exportTable2: ExportAsConfig = {
+    type: 'png',
+    elementIdOrContent: 'tableRegionPeriod',
+  };
+  exportTable3: ExportAsConfig = {
+    type: 'png',
+    elementIdOrContent: 'tableDistrictFacility',
+  };
+  exportTable4: ExportAsConfig = {
+    type: 'png',
+    elementIdOrContent: 'tableDistrictPeriod',
+  }
+  exportTable5: ExportAsConfig = {
+    type: 'png',
+    elementIdOrContent: 'tableFacilityChw',
+  }
+  exportTable6: ExportAsConfig = {
+    type: 'png',
+    elementIdOrContent: 'tableFacilityPeriod',
   }
 
   constructor( private dataSeries: DataService, private exportAsService: ExportAsService) {}
@@ -74,6 +99,49 @@ export class ScoreComponent implements OnInit {
       this.getOrgUnitFacility();
     });
 
+  }
+
+  ImgRegionDistrict() {
+    this.exportAsService.save(this.exportAsConfig, 'districts of region').subscribe(() => {
+    });
+    this.exportAsService.get(this.exportAsConfig).subscribe(content => {
+      console.log(content);
+    });
+  }
+  imgRegPer() {
+    this.exportAsService.save(this.exportTable2, 'Regions of Period').subscribe(() => {
+    });
+    this.exportAsService.get(this.exportTable2).subscribe(content => {
+      console.log(content);
+    });
+  }
+  imgDistrictFacility() {
+    this.exportAsService.save(this.exportTable3, 'facility of district').subscribe(() => {
+    });
+    this.exportAsService.get(this.exportTable3).subscribe(content => {
+      console.log(content);
+    });
+  }
+  imgDistPer() {
+    this.exportAsService.save(this.exportTable4, 'district of Period').subscribe(() => {
+    });
+    this.exportAsService.get(this.exportTable4).subscribe(content => {
+      console.log(content);
+    });
+  }
+  imgFacilityChw() {
+    this.exportAsService.save(this.exportTable5, 'facility oh chw').subscribe(() => {
+    });
+    this.exportAsService.get(this.exportTable5).subscribe(content => {
+      console.log(content);
+    });
+  }
+  imgFacilityPer() {
+    this.exportAsService.save(this.exportTable6, 'facility of Period').subscribe(() => {
+    });
+    this.exportAsService.get(this.exportTable6).subscribe(content => {
+      console.log(content);
+    });
   }
   browserPrint() {
     window.print();
@@ -362,15 +430,5 @@ export class ScoreComponent implements OnInit {
         }
       });
     }
-  }
-
-  downImg() {
-    this.exportAsService.save(this.exportAsConfig, 'My File Name').subscribe(() => {
-      // save started
-    });
-    // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
-    this.exportAsService.get(this.exportAsConfig).subscribe(content => {
-      console.log(content);
-    });
   }
 }

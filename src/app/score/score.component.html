@@ -20,21 +20,6 @@
   </div>
 </div>
 <hr/>
-<!--<thead>-->
-<!--<tr>-->
-<!--  <th>Name</th>-->
-<!--  <th>Email</th>-->
-<!--  <th>Website</th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--<tr *ngFor="let group of data">-->
-<!--  <td class="bg-green">{{group.name}}</td>-->
-<!--  <td>{{group.email}}</td>-->
-<!--  <td class="bg-red">{{group.website}}</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-
 <div class="container-fluid mt-5" *ngIf="choisePlay == 'region'">
   <div class="card card-chart" style="background-color: #f4f3ef" >
     <div class="card-header" id="cardHeader">
@@ -76,11 +61,28 @@
     <div class="row mt-3" >
       <div class="col-md-12">
         <div class="card" id="regionCard">
-          <div class="card-header justify-content-center text-center">
-            <div class="card-title"><h2>{{"Evaluation table of districts in the "|translate}}{{selectedRegionName}} {{" region over the last 12 months"}}</h2></div>
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-8 justify-content-center text-center">
+                <div class="card-title"><h2>{{"Evaluation table of districts in the"|translate}}{{" "}}{{selectedRegionName}}{{" "}}{{"region over the last 12 months"|translate}}</h2></div>
+              </div>
+              <div class="col-md-2 ml-sm-3 float-left">
+                <button
+                  tourAnchor="download"
+                  (mouseenter)="img1Hovered = true"
+                  (mouseleave)="img1Hovered = false"
+                  class="btn btn-outline-secondary btn-sm pull-right cursor"
+                  (click)="ImgRegionDistrict()"
+                  style="height: 35px;margin-left: 3px"
+                  title="{{ 'Image' | translate }}">
+                  <i class="fa fa-image"></i>
+                  <span *ngIf="img1Hovered" [translate]="'Image'">Image</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="card-body" id="table1">
-            <div class="row" id="htmlData">
+          <div class="card-body">
+            <div class="row">
               <table class="table table-bordered table-responsive">
                 <thead>
                 <tr>
@@ -101,7 +103,6 @@
                 <i class="fa fa-square text-danger"></i> {{'Not in track'|translate}}
                 <i class="fa fa-square text-gray"></i> {{"No Data"|translate}}
               </div>
-              <button (click)="downImg()">download img</button>
             </div>
           </div>
         </div>
@@ -109,9 +110,26 @@
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
-        <div class="card ">
-          <div class="card-header justify-content-center text-center" style="background-color: transparent">
-            <div class="card-title"><h2>{{" Evaluation table of region "|translate}}{{selectedRegionName}} {{" over the last 12 months"}}</h2></div>
+        <div class="card" id="tableRegionPeriod">
+          <div class="card-header" style="background-color: transparent">
+            <div class="row">
+              <div class="col-md-8 justify-content-center text-center">
+                <div class="card-title"><h2>{{"Evaluation table of region"|translate}}{{" "}}{{selectedRegionName}}{{" "}}{{"over the last 12 months"|translate}}</h2></div>
+              </div>
+              <div class="col-md-2 ml-sm-3 float-left">
+                  <button
+                    tourAnchor="download"
+                    (mouseenter)="img2Hovered = true"
+                    (mouseleave)="img2Hovered = false"
+                    class="btn btn-outline-secondary btn-sm pull-right cursor"
+                    (click)="imgRegPer()"
+                    style="height: 35px;margin-left: 3px"
+                    title="{{ 'Image' | translate }}">
+                    <i class="fa fa-image"></i>
+                    <span *ngIf="img2Hovered" [translate]="'Image'">Image</span>
+                  </button>
+                </div>
+            </div>
           </div>
           <div class="card-body ">
             <div class="row">
@@ -220,9 +238,26 @@
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
-        <div class="card ">
-          <div class="card-header justify-content-center text-center" style="background-color: transparent">
-            <div class="card-title"><h2>{{selectedDistrictName }}{{" score card table"|translate}}</h2></div>
+        <div class="card" id="tableDistrictFacility">
+          <div class="card-header " style="background-color: transparent">
+            <div class="row">
+              <div class="col-md-8 justify-content-center text-center">
+                <div class="card-title"><h2>{{"Evaluation table of facility in the"|translate}}{{" "}}{{selectedDistrictName}}{{" "}}{{"district over the last 12 months"|translate}}</h2></div>
+              </div>
+              <div class="col-md-2 ml-sm-3 float-left">
+                <button
+                  tourAnchor="download"
+                  (mouseenter)="img3Hovered = true"
+                  (mouseleave)="img3Hovered = false"
+                  class="btn btn-outline-secondary btn-sm pull-right cursor"
+                  (click)="imgDistrictFacility()"
+                  style="height: 35px;margin-left: 3px"
+                  title="{{ 'Image' | translate }}">
+                  <i class="fa fa-image"></i>
+                  <span *ngIf="img3Hovered" [translate]="'Image'">Image</span>
+                </button>
+              </div>
+            </div>
           </div>
           <div class="card-body ">
             <div class="row">
@@ -253,9 +288,27 @@
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
-        <div class="card ">
-          <div class="card-header justify-content-center text-center" style="background-color: transparent">
-            <div class="card-title"><h2>{{selectedDistrictName }}{{" District scorecard table by time"|translate}}</h2></div>
+        <div class="card" id="tableDistrictPeriod">
+          <div class="card-header" style="background-color: transparent">
+            <div class="row">
+              <div class="col-md-8 justify-content-center text-center">
+              <div class="card-title"><h2>{{"Evaluation table of district"|translate}}{{" "}}{{selectedDistrictName}}{{" "}}{{"over the last 12 months"|translate}}</h2></div>
+            </div>
+              <div class="col-md-2 ml-sm-3 float-left">
+                <button
+                  tourAnchor="download"
+                  (mouseenter)="img4Hovered = true"
+                  (mouseleave)="img4Hovered = false"
+                  class="btn btn-outline-secondary btn-sm pull-right cursor"
+                  (click)="imgDistPer()"
+                  style="height: 35px;margin-left: 3px"
+                  title="{{ 'Image' | translate }}">
+                  <i class="fa fa-image"></i>
+                  <span *ngIf="img4Hovered" [translate]="'Image'">Image</span>
+                </button>
+              </div>
+            </div>
+
           </div>
           <div class="card-body ">
             <div class="row">
@@ -363,9 +416,27 @@
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
-        <div class="card ">
-          <div class="card-header justify-content-center text-center" style="background-color: transparent">
-            <div class="card-title"><h2>{{selectedFacilityName}}{{" score card table"|translate}}</h2></div>
+        <div class="card" id="tableFacilityChw">
+          <div class="card-header" style="background-color: transparent">
+            <div class="row">
+              <div class="col-md-8 justify-content-center text-center">
+                <div class="card-title"><h2>{{"Evaluation table of community in the"|translate}}{{" "}}{{selectedFacilityName}}{{" "}}{{"facility over the last 12 months"|translate}}</h2></div>
+              </div>
+              <div class="col-md-2 ml-sm-3 float-left">
+                <button
+                  tourAnchor="download"
+                  (mouseenter)="img5Hovered = true"
+                  (mouseleave)="img5Hovered = false"
+                  class="btn btn-outline-secondary btn-sm pull-right cursor"
+                  (click)="imgFacilityChw()"
+                  style="height: 35px;margin-left: 3px"
+                  title="{{ 'Image' | translate }}">
+                  <i class="fa fa-image"></i>
+                  <span *ngIf="img5Hovered" [translate]="'Image'">Image</span>
+                </button>
+              </div>
+            </div>
+
           </div>
           <div class="card-body ">
             <div class="row">
@@ -396,9 +467,26 @@
     </div>
     <div class="row mt-3">
       <div class="col-md-12">
-        <div class="card ">
-          <div class="card-header justify-content-center text-center" style="background-color: transparent">
-            <div class="card-title"><h2>{{selectedFacilityName}}{{" Facility scorecard table by time"|translate}}</h2></div>
+        <div class="card" id="tableFacilityPeriod">
+          <div class="card-header" style="background-color: transparent">
+            <div class="row">
+              <div class="col-md-8 justify-content-center text-center">
+                <div class="card-title"><h2>{{"Evaluation table of facility"|translate}}{{" "}}{{selectedFacilityName}}{{" "}}{{"over the last 12 months"|translate}}</h2></div>
+              </div>
+              <div class="col-md-2 ml-sm-3 float-left">
+                <button
+                  tourAnchor="download"
+                  (mouseenter)="img5Hovered = true"
+                  (mouseleave)="img5Hovered = false"
+                  class="btn btn-outline-secondary btn-sm pull-right cursor"
+                  (click)="imgFacilityPer()"
+                  style="height: 35px;margin-left: 3px"
+                  title="{{ 'Image' | translate }}">
+                  <i class="fa fa-image"></i>
+                  <span *ngIf="img5Hovered" [translate]="'Image'">Image</span>
+                </button>
+              </div>
+            </div>
           </div>
           <div class="card-body ">
             <div class="row">

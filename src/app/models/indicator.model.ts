@@ -4,5 +4,5 @@ export interface IIndicator {
 }
 
 export class Indicator implements IIndicator{
-  constructor(public id:string, public name: string) {}
+  constructor(public id: string, public name: string) {}
 }

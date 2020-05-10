@@ -17,8 +17,6 @@ export class AppComponent implements OnInit{
               private exportAsService: ExportAsService) {
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
-    // const browserLang = translate.getBrowserLang();
-   //  translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   }
   ngOnInit(){
     this.getMalariaDataStore();

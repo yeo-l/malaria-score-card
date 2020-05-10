@@ -1,11 +1,11 @@
 <ngx-dhis2-menu></ngx-dhis2-menu>
 <div class="preview_header">
   <div class="preview_logo">
-    <img src="./assets/malariaSc_logo.png" alt="Malaria Score Card Logo" width="100"/>
+    <img src="assets/malariaSc_logo.png" alt="Malaria Score Card Logo" width="100"/>
   </div>
   <div class="preview_action">
     <div class="preview_score">
-      <button class="btn btn-primary" [ngClass]="{'btn-info':title === 'Malaria score card'}" [routerLink]="['/score']"> {{"SCORE CARD" |translate}}</button>
+      <button class="btn btn-primary" [ngClass]="{'btn-info':title === 'Malaria score card'}" [routerLink]="['/score']"> SCORE CARD </button>
     </div>
     <div class="preview_setting">
       <a href="#">
@@ -16,12 +16,6 @@
       </a>
     </div>
     <div class="preview_translate">
-      <!--      <div class="form-check form-check-inline">-->
-      <!--        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked (click)="translate.use('en')">-->
-      <!--        <label class="form-check-label" style="color: black" ><strong>EN </strong></label> ||-->
-      <!--        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" (click)="translate.use('fr')">-->
-      <!--        <label class="form-check-label" style="color: black" ><strong> FR</strong></label>-->
-      <!--      </div>-->
       <span class="form-inline">
       <select class="form-control" #selectedLang (change)="switchLang(selectedLang.value)">
         <option *ngFor="let language of translate.getLangs()" [value]="language"
