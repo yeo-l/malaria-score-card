@@ -110,6 +110,9 @@
           <th class="w-auto">{{"Indicator"|translate}}</th>
           <th class="w-auto">{{"Type"|translate}}</th>
           <th class="w-auto">{{"Data Element / Indicator"|translate}}</th>
+          <th class="w-auto">{{"Target"|translate}}</th>
+          <th class="w-auto">{{"achieved"|translate}}</th>
+          <th class="w-auto">{{"Not in Track"|translate}}</th>
           <th class="w-auto">{{'Action'|translate}}</th>
         </tr>
         </thead>
@@ -138,6 +141,22 @@
             <div class="col-md-1" *ngIf="loading && editId == i">
               <img src="./assets/img/35.gif" width="35px" alt="loading">
             </div>
+          </td>
+          <td style="width: 100px">
+            <span *ngIf="i != editId">{{ind.target.toString() | titlecase}}</span>
+            <select *ngIf="i == editId" [(ngModel)]="ind.target" class="form-control mb-0">
+              <option value=""></option>
+              <option value="0" [selected]="ind.target == '0'">0</option>
+              <option value="100" [selected]="ind.target == '100'">100</option>
+            </select>
+            </td>
+          <td style="width: 100px">
+            <span *ngIf="i != editId">{{ind.achieved}}</span>
+            <input *ngIf="i == editId" class="form-control" [(ngModel)]="ind.achieved">
+            </td>
+          <td style="width: 100px">
+            <span *ngIf="i != editId">{{ind.notInTrack}}</span>
+            <input *ngIf="i == editId" class="form-control" [(ngModel)]="ind.notInTrack">
           </td>
           <td class="text-center">
             <button *ngIf="i != editId" class="btn btn-warning" (click)="editField(i)"><i class="fa fa-edit"></i></button>

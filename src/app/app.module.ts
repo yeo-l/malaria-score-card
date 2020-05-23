@@ -14,13 +14,11 @@ import {NgxDhis2HttpClientModule} from '@iapps/ngx-dhis2-http-client';
 import { PeriodeFilterComponent } from './periode-filter/periode-filter.component';
 import {NgxDhis2PeriodFilterModule} from '@iapps/ngx-dhis2-period-filter';
 import { LayoutComponent } from './layout/layout.component';
-import {TreeModule} from 'angular-tree-component';
-import {TreeviewModule} from 'ngx-treeview';
 import {DndModule} from 'ng2-dnd';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {NgxPrintModule} from 'ngx-print';
-import {DataTablesModule} from 'angular-datatables';
+// import {DataTablesModule} from 'angular-datatables';
 import {MatTableModule} from '@angular/material/table';
 import {ExportAsModule} from 'ngx-export-as';
 
@@ -40,8 +38,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
     imports: [
         BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxDhis2MenuModule,
-        NgSelectModule, NgxPrintModule, DataTablesModule, ExportAsModule,
-        BrowserAnimationsModule, TreeviewModule.forRoot(),
+        NgSelectModule, NgxPrintModule, ExportAsModule, // DataTablesModule
+        BrowserAnimationsModule,
         NgxDhis2HttpClientModule.forRoot({
             namespace: 'malariaScoreCard',
             version: 1,
@@ -53,7 +51,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
-        }), ReactiveFormsModule, NgxDhis2PeriodFilterModule, TreeModule, DndModule, NgbModule, MatTableModule
+        }), ReactiveFormsModule, NgxDhis2PeriodFilterModule, DndModule, NgbModule, MatTableModule
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -38,98 +38,140 @@
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G1",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "Change in estimated malaria mortality (2020 – 2024)",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G1",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "Change in estimated malaria cases treated and cured (2020 – 2024)",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G1",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% of nets distributed",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G2",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% of fever cases tested with RDT",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G2",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% pregnant women provided IPTp at more than 12 week gestational age",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G2",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% pregnant women receiving IPT x 2 only",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G2",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% pregnant women receiving IPT x 3",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G2",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% of malaria confirmed cases treated with first-line antimalarial treatment according to national policy",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G3",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% of severe malaria cases referred for treatment",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G3",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "% of health facilities with stock out",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G4",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "Number of days of ACT stock out",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G4",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "Number of days of SP stock out",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G4",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     },
     {
       "name": "Number of days of Nets stock out",
       "dhisID": "",
       "dhisName": "",
       "groupCode": "G4",
-      "type": ""
+      "type": "",
+      "target": "",
+      "achieved": "",
+      "notInTrack": ""
     }
   ]
 }

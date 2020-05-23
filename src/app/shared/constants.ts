@@ -1,9 +1,8 @@
 export const SERVER_API_URL = '../../../api';
-
 export let dtOptions = {
   pagingType: 'full_numbers',
   // scrollY: 300,
-  paging: true,
+  paging: false,
   pageLength: 10,
   lengthChange: false,
   language: {
@@ -36,14 +35,11 @@ export let dtOptionsAllButtons = {...dtOptions, dom: 'Bfrtip', buttons: [
     'print',
     'excel'
   ]};
-
 export let dtOptionsExcelPrintButtons = {...dtOptions, dom: 'Bfrtip', buttons: [
     'copy',
     'print',
     'excel'
   ]};
-
-
 export let dtOptionsExcelButtons = {...dtOptions, dom: 'Bfrtip', buttons: [
     'copy',
     'excel'

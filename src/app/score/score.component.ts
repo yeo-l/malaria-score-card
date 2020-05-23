@@ -1,10 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../services/data.service';
 import {MalariaDataStoreModel} from '../models/malaria-data-store-model';
-import {Subject} from 'rxjs';
-import {DataTableDirective} from 'angular-datatables';
-import {dtOptions, dtOptionsExcelPrintButtons} from '../shared/constants';
-import {ExportAsConfig, ExportAsService} from 'ngx-export-as';
+import {ExportAsConfig, ExportAsService, SupportedExtensions} from 'ngx-export-as';
 
 @Component({
   selector: 'app-score',
@@ -12,12 +9,6 @@ import {ExportAsConfig, ExportAsService} from 'ngx-export-as';
   styleUrls: ['./score.component.css']
 })
 export class ScoreComponent implements OnInit {
- // @ViewChild('htmlData') htmlData: ElementRef;
- @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = dtOptions;
-  dtTrigger: Subject<any> = new Subject();
-
   dataStore: MalariaDataStoreModel;
   regions: any = [{}];
   districts: any = [{}];
@@ -28,24 +19,13 @@ export class ScoreComponent implements OnInit {
   selectedDistrict: string;
   selectedFacility: string;
   elementName: {} = {};
-  regionDataByDistrict: string[][] = [];
-  regionDataHeaders: any = [];
-  regionInGray = 0; regionInRed = 0;
-  regionInGreen = 0; regionInYellow = 0;
-  districtInGray = 0; districtInRed = 0;
-  districtInGreen = 0; districtInYellow = 0;
-  facilityInGray = 0; facilityInRed = 0;
-  facilityInGreen = 0; facilityInYellow = 0;
-  regionDataByDistrictPeriod: string[][] = [];
-  regionDataHeadersByPeriod: any = [];
-  districtDataByFacility: string[][] = [];
-  districtDataHeaders: any = [];
-  districtDataByDistrictPeriod: string[][] = [];
-  districtDataHeadersByPeriod: any = [];
-  facilityDataByCommunity: string[][] = [];
-  facilityDataHeaders: any = [];
-  facilityDataByChwPeriod: string[][] = [];
-  facilityDataHeadersByPeriod: any = [];
+  targetInfo: {} = {};
+  orgUnitDataColors: string[][] = [[]];
+  periodDataColors: string[][] = [[]];
+  orgUnitDataValues: string[][] = [];
+  orgUnitHeaders: any = [];
+  periodDataValues: string[][] = [];
+  periodHeaders: any = [];
   selectedRegionName: string;
   selectedDistrictName: string;
   selectedFacilityName: string;
@@ -56,7 +36,6 @@ export class ScoreComponent implements OnInit {
   img3Hovered = false;
   img4Hovered = false;
   img5Hovered = false;
-  img6Hovered = false;
 
   exportAsConfig: ExportAsConfig = {
     type: 'png',
@@ -82,15 +61,28 @@ export class ScoreComponent implements OnInit {
     type: 'png',
     elementIdOrContent: 'tableFacilityPeriod',
   }
+  config: ExportAsConfig = {
+    type: 'pdf',
+    elementIdOrContent: 'figure1',
+    options: {
+      jsPDF: {
+        orientation: 'landscape'
+      },
+      //  pdfCallbackFn: this.pdfCallbackFn // to add header and footer
+    }
+  };
 
-  constructor( private dataSeries: DataService, private exportAsService: ExportAsService) {}
+  constructor( private dataService: DataService, private exportAsService: ExportAsService) {}
 
   ngOnInit(): void {
-    this.dataSeries.getDataStore().subscribe( ds => {
+    this.dataService.getDataStore().subscribe( ds => {
       this.dataStore = ds;
       this.dataStore.indicators.forEach(indicator => {
-        if (indicator.dhisID !== null){
+        if (indicator.dhisID !== null && indicator.dhisID !== ''){
           this.elementName[indicator.dhisID] = indicator.name;
+          this.targetInfo[indicator.dhisID + '.achieved'] = indicator.achieved;
+          this.targetInfo[indicator.dhisID + '.target'] = indicator.target;
+          this.targetInfo[indicator.dhisID + '.notInTrack'] = indicator.notInTrack;
         }
       });
       this.getOrgUnitRegion();
@@ -101,6 +93,32 @@ export class ScoreComponent implements OnInit {
 
   }
 
+  pdfCallbackFn(pdf: any) {
+    // example to add page number as footer to every page of pdf
+    const noOfPages = pdf.internal.getNumberOfPages();
+    for (let i = 1; i <= noOfPages; i++) {
+      pdf.setPage(i);
+      pdf.text('Page ' + i + ' of ' + noOfPages, pdf.internal.pageSize.getWidth() - 100, pdf.internal.pageSize.getHeight() - 30);
+    }
+  }
+  exportAs(type: SupportedExtensions, opt?: string) {
+    this.config.type = type;
+    if (opt) {
+      this.config.options.jsPDF.orientation = opt;
+    }
+    this.exportAsService.save(this.config, 'myFile').subscribe(() => {
+      // save started
+    });
+    this.exportAsService.get(this.config).subscribe(content => {
+      const link = document.createElement('a');
+      const fileName = 'export.pdf';
+
+      link.href = content;
+      link.download = fileName;
+      link.click();
+      console.log(content);
+    });
+  }
   ImgRegionDistrict() {
     this.exportAsService.save(this.exportAsConfig, 'districts of region').subscribe(() => {
     });
@@ -149,25 +167,28 @@ export class ScoreComponent implements OnInit {
   getOrgUnitRegion(){
     this.loadingRegionData = false;
     const params: string[] = ['fields=id,name&filter=level:eq:' + this.dataStore.orgUnitLevel[0].region];
-    this.dataSeries.loadOrganisationUnits(params).subscribe( (OURegion: any) => {
+    this.dataService.loadOrganisationUnits(params).subscribe( (OURegion: any) => {
       this.regions = OURegion.organisationUnits;
     });
   }
   getOrgUnitDistrict(){
+    this.loadingRegionData = false;
     const params: string[] = ['fields=id,name&filter=level:eq:' + this.dataStore.orgUnitLevel[0].district];
-    this.dataSeries.loadOrganisationUnits(params).subscribe( (DistrictData: any) => {
+    this.dataService.loadOrganisationUnits(params).subscribe( (DistrictData: any) => {
       this.districts = DistrictData.organisationUnits;
     });
   }
   getOrgUnitFacility(){
+    this.loadingRegionData = false;
     const params: string[] = ['fields=id,name&filter=level:eq:' + this.dataStore.orgUnitLevel[0].facility];
-    this.dataSeries.loadOrganisationUnits(params).subscribe( (facilityData: any) => {
+    this.dataService.loadOrganisationUnits(params).subscribe( (facilityData: any) => {
       this.facilities = facilityData.organisationUnits;
     });
   }
   getOrgUnitChw(){
+    this.loadingRegionData = false;
     const params: string[] = ['fields=id,name&filter=level:eq:' + this.dataStore.orgUnitLevel[0].facility];
-    this.dataSeries.loadOrganisationUnits(params).subscribe( (chwData: any) => {
+    this.dataService.loadOrganisationUnits(params).subscribe( (chwData: any) => {
       this.chws = chwData.organisationUnits;
     });
   }
@@ -183,52 +204,93 @@ export class ScoreComponent implements OnInit {
     }
     return null;
   }
-  getFacilityDataByPeriodFilter(){
+
+  getColor(target: number, value: number, achieved: number, notInTrack: number): string {
+    return this.dataService.getColor(target, value, achieved, notInTrack);
+  }
+  getDataByOrgUnit(level: string, orgUnitId) {
     const dx = this.getDimensionDx();
-    const levelF: string = this.dataStore.orgUnitLevel[0].chw;
+    this.orgUnitDataColors.splice(0, this.orgUnitDataColors.length);
+    this.orgUnitDataValues = [];
+    this.orgUnitHeaders = [];
     if (dx !== null){
-      this.dataSeries.getDataByPeriodFilter(this.selectedFacility, dx, levelF).subscribe( (data: any) => {
+      this.dataService.getDataByPeriodFilter(orgUnitId, dx, level).subscribe( (data: any) => {
         const rows = data.rows;
         const headers = data.headers;
-        this.facilityDataByCommunity = [];
-        this.facilityDataHeaders = [];
-        this.facilityInGreen = 0;
-        this.facilityInGray = 0;
-        this.facilityInYellow = 0;
-        this.facilityInRed   = 0;
         for (let i = 0; i < rows.length; i++){
           const columns = rows[i];
           let count = 0;
           const columnData: string[] = [];
+          const colors = [];
+          let id = '';
           for (let j = 0; j < columns.length; j++){
-            if (headers[j].column === 'dataid'){
+              id = columns[0];
+              if (headers[j].column === 'dataid'){
               columnData[count] = this.elementName[columns[j]];
-              this.facilityDataHeaders[count] = '';
+              this.orgUnitHeaders[count] = 'Indicators';
+              colors[count] = '';
               count++;
             }
             else if (headers[j].column !== 'datacode' && headers[j].column !== 'datadescription' && headers[j].column !== 'dataname'){
               columnData[count] = columns[j];
-              this.facilityDataHeaders[count] = headers[j].column;
+              this.orgUnitHeaders[count] = headers[j].column;
+              colors[count] = this.getColor(parseFloat(this.targetInfo[id + '.target']),
+                parseFloat(columnData[count]),
+                parseFloat(this.targetInfo[id + '.achieved']),
+                parseFloat(this.targetInfo[id + '.notInTrack']));
               count ++;
-              if (parseFloat(columns[j]) >= 70){
-                this.facilityInGreen ++;
-              }
-              if (parseFloat(columns[j]) < 40){
-                this.facilityInRed ++;
-              }
-              if (isNaN(parseFloat(columns[j]))){
-                this.facilityInGray ++;
-              }
-              if (parseFloat(columns[j]) < 70 && parseFloat(columns[j]) >= 40){
-                this.facilityInYellow ++;
-              }
             }
           }
-          this.facilityDataByCommunity.push(columnData);
+          this.orgUnitDataColors[i] = colors;
+          this.orgUnitDataValues.push(columnData);
         }
       });
-      this.getFacilityDataByOrgUnitFilter();
-      this.getDistrictDataByOrgUnitFilter();
+      this.getDataByPeriod(orgUnitId);
+    }
+  }
+
+  getDataByPeriod(orgUnitId) {
+    const dx = this.getDimensionDx();
+    this.periodDataColors.splice(0, this.periodDataColors.length);
+    this.periodDataValues = [];
+    this.periodHeaders = [];
+    if (dx !== null){
+      this.dataService.getDataByOrgUnitFilter(orgUnitId, dx).subscribe((data: any) => {
+        const rows = data.rows;
+        const headers = data.headers;
+        for (let i = 0; i < rows.length; i++) {
+          const columns = rows[i];
+          let count = 0;
+          let id = '';
+          const colors = [];
+          const columnData: string[] = [];
+          for (let j = 0; j < columns.length; j++) {
+            if (headers[j].column === 'dataid') {
+              columnData[count] = this.elementName[columns[j]];
+              id = columns[j];
+              this.periodHeaders[count] = 'Indicators';
+              colors[count] = '';
+              count++;
+            } else if (headers[j].column !== 'datacode' && headers[j].column !== 'datadescription' && headers[j].column !== 'dataname') {
+              columnData[count] = columns[j];
+              this.periodHeaders[count] = headers[j].column;
+              colors[count] = this.getColor(parseFloat(this.targetInfo[id + '.target']),
+                parseFloat(columnData[count]),
+                parseFloat(this.targetInfo[id + '.achieved']),
+                parseFloat(this.targetInfo[id + '.notInTrack']));
+              count++;
+            }
+          }
+          this.periodDataColors[i] = colors;
+          this.periodDataValues.push(columnData);
+        }
+      });
+    }
+  }
+
+  getFacilityData() {
+    if (this.selectedFacility) {
+      this.getDataByOrgUnit(this.dataStore.orgUnitLevel[0].chw, this.selectedFacility);
       this.facilities.forEach(facility => {
         if (facility.id === this.selectedFacility){
           this.selectedFacilityName = facility.name;
@@ -236,199 +298,27 @@ export class ScoreComponent implements OnInit {
       });
     }
   }
-  getDistrictDataByPeriodFilter(){
-    const dx = this.getDimensionDx();
-    const levelD: string = this.dataStore.orgUnitLevel[0].facility;
-    if (dx !== null){
-      this.dataSeries.getDataByPeriodFilter(this.selectedDistrict, dx, levelD).subscribe((data: any) => {
-        const rows = data.rows;
-        const headers = data.headers;
-        this.districtDataByFacility = [];
-        this.districtDataHeaders = [];
-        this.districtInGreen = 0;
-        this.districtInGray = 0;
-        this.districtInYellow = 0;
-        this.districtInRed = 0;
-        for (let i = 0; i < rows.length; i++){
-          const columns = rows[i];
-          let count = 0;
-          const columnData: string[] = [];
-          for (let j = 0; j < columns.length; j++){
-            if (headers[j].column === 'dataid'){
-              columnData[count] = this.elementName[columns[j]];
-              this.districtDataHeaders[count] = '';
-              count++;
-            }
-            else if (headers[j].column !== 'datacode' && headers[j].column !== 'datadescription' && headers[j].column !== 'dataname'){
-              columnData[count] = columns[j];
-              this.districtDataHeaders[count] = headers[j].column;
-              count ++;
-              if (parseFloat(columns[j]) >= 70){
-                this.districtInGreen ++;
-              }
-              if (parseFloat(columns[j]) < 40){
-                this.districtInRed ++;
-              }
-              if (isNaN(parseFloat(columns[j]))){
-                this.districtInGray ++;
-              }
-              if (parseFloat(columns[j]) < 70 && parseFloat(columns[j]) >= 40){
-                this.districtInYellow ++;
-              }
-            }
-          }
-          this.districtDataByFacility.push(columnData);
-        }
-      });
-    }
-    this.getDistrictDataByOrgUnitFilter();
-    this.districts.forEach(district => {
-      if (district.id === this.selectedDistrict){
-        this.selectedDistrictName = district.name;
-      }
-    });
-  }
-  getRegionDataByPeriodFilter(){
-    const levelR: string = this.dataStore.orgUnitLevel[0].district;
-    const dx = this.getDimensionDx();
-    if (dx !== null){
-      this.dataSeries.getDataByPeriodFilter(this.selectedRegion, dx, levelR).subscribe( (data: any) => {
-        const rows = data.rows;
-        console.log(data);
-        const headers = data.headers;
-        this.regionDataByDistrict = [];
-        this.regionDataHeaders = [];
-        this.regionInGreen = 0;
-        this.regionInGray = 0;
-        this.regionInYellow = 0;
-        this.regionInRed = 0;
-        for (let i = 0; i < rows.length; i++){
-          const columns = rows[i];
-          let count = 0;
-          const columnData: string[] = [];
-          for (let j = 0; j < columns.length; j++){
-            if (headers[j].column === 'dataid'){
-              columnData[count] = this.elementName[columns[j]];
-              this.regionDataHeaders[count] = '';
-              count++;
-            }
-            else if (headers[j].column !== 'datacode' && headers[j].column !== 'datadescription' && headers[j].column !== 'dataname'){
-              columnData[count] = columns[j];
-              this.regionDataHeaders[count] = headers[j].column;
-              count ++;
-              // console.log(parseFloat(columns[j]));
-              if (parseFloat(columns[j]) >= 70){
-                this.regionInGreen ++;
-              }
-              if (parseFloat(columns[j]) < 40){
-                this.regionInRed ++;
-              }
 
-              if (isNaN(parseFloat(columns[j]))){
-                this.regionInGray ++;
-                // console.log(parseFloat(columns[j]));
-              }
-              if (parseFloat(columns[j]) < 70 && parseFloat(columns[j]) >= 40){
-                this.regionInYellow ++;
-              }
-            }
-          }
-          this.regionDataByDistrict.push(columnData);
-        }
-        console.log('header',  this.regionDataHeaders);
-        console.log('columnd', this.regionDataByDistrict);
-      });
-    }
-    this.getRegionDataByOrgUnitFilter();
-    this.regions.forEach(region => {
-      if (region.id === this.selectedRegion){
-        this.selectedRegionName = region.name;
-      }
-    });
-  }
-  getDistrictDataByOrgUnitFilter(){
-    const dx = this.getDimensionDx();
-    if (dx !== null){
-      this.dataSeries.getDataByOrgUnitFilter(this.selectedDistrict, dx).subscribe((data: any) => {
-        const rows = data.rows;
-        const headers = data.headers;
-        this.districtDataByDistrictPeriod = [];
-        this.districtDataHeadersByPeriod = [];
-        for (let i = 0; i < rows.length; i++) {
-          const columns = rows[i];
-          let count = 0;
-          const columnData: string[] = [];
-          for (let j = 0; j < columns.length; j++) {
-            if (headers[j].column === 'dataid') {
-              columnData[count] = this.elementName[columns[j]];
-              this.districtDataHeadersByPeriod[count] = '';
-              count++;
-            } else if (headers[j].column !== 'datacode' && headers[j].column !== 'datadescription' && headers[j].column !== 'dataname') {
-              columnData[count] = columns[j];
-              this.districtDataHeadersByPeriod[count] = headers[j].column;
-              count++;
-            }
-          }
-          this.districtDataByDistrictPeriod.push(columnData);
+  getRegionData() {
+    if (this.selectedRegion) {
+      this.getDataByOrgUnit(this.dataStore.orgUnitLevel[0].district, this.selectedRegion);
+      this.regions.forEach(region => {
+        if (region.id === this.selectedRegion){
+          this.selectedRegionName = region.name;
         }
       });
     }
   }
-  getFacilityDataByOrgUnitFilter(){
-    const dx = this.getDimensionDx();
-    if (dx !== null){
-      this.dataSeries.getDataByOrgUnitFilter(this.selectedFacility, dx).subscribe((data: any) => {
-        const rows = data.rows;
-        const headers = data.headers;
-        this.facilityDataByChwPeriod = [];
-        this.facilityDataHeadersByPeriod = [];
-        for (let i = 0; i < rows.length; i++) {
-          const columns = rows[i];
-          let count = 0;
-          const columnData: string[] = [];
-          for (let j = 0; j < columns.length; j++) {
-            if (headers[j].column === 'dataid') {
-              columnData[count] = this.elementName[columns[j]];
-              this.facilityDataHeadersByPeriod[count] = '';
-              count++;
-            } else if (headers[j].column !== 'datacode' && headers[j].column !== 'datadescription' && headers[j].column !== 'dataname') {
-              columnData[count] = columns[j];
-              this.facilityDataHeadersByPeriod[count] = headers[j].column;
-              count++;
-            }
-          }
-          this.facilityDataByChwPeriod.push(columnData);
+
+  getDistrictData() {
+    if (this.selectedDistrict) {
+      this.getDataByOrgUnit(this.dataStore.orgUnitLevel[0].facility, this.selectedDistrict);
+      this.districts.forEach(district => {
+        if (district.id === this.selectedDistrict){
+          this.selectedRegionName = district.name;
         }
       });
     }
   }
-  getRegionDataByOrgUnitFilter(){
-    const dx = this.getDimensionDx();
-    if (dx !== null){
-      this.dataSeries.getDataByOrgUnitFilter(this.selectedRegion, dx).subscribe((data: any) => {
-        const rows = data.rows;
-        const headers = data.headers;
-        this.regionDataByDistrictPeriod = [];
-        this.regionDataHeadersByPeriod = [];
-        for (let i = 0; i < rows.length; i++){
-          const columns = rows[i];
-          let count = 0;
-          const columnData: string[] = [];
-          for (let j = 0; j < columns.length; j++){
-            if (headers[j].column === 'dataid'){
-              columnData[count] = this.elementName[columns[j]];
-              this.regionDataHeadersByPeriod[count] = '';
-              count++;
-            }
-            else if (headers[j].column !== 'datacode' && headers[j].column !== 'datadescription' && headers[j].column !== 'dataname'){
-              columnData[count] = columns[j];
-              this.regionDataHeadersByPeriod[count] = headers[j].column;
-              count ++;
-            }
-          }
-          this.regionDataByDistrictPeriod.push(columnData);
-        }
-      });
-    }
-  }
+
 }
