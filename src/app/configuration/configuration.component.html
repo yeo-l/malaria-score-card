@@ -113,6 +113,7 @@
           <th class="w-auto">{{"Target"|translate}}</th>
           <th class="w-auto">{{"achieved"|translate}}</th>
           <th class="w-auto">{{"Not in Track"|translate}}</th>
+          <th *ngIf="editId == -1"  class="w-auto">{{"The formula"|translate}}</th>
           <th class="w-auto">{{'Action'|translate}}</th>
         </tr>
         </thead>
@@ -152,12 +153,13 @@
             </td>
           <td style="width: 100px">
             <span *ngIf="i != editId">{{ind.achieved}}</span>
-            <input *ngIf="i == editId" class="form-control" [(ngModel)]="ind.achieved">
+            <input type="number" *ngIf="i == editId" class="form-control" [(ngModel)]="ind.achieved">
             </td>
           <td style="width: 100px">
             <span *ngIf="i != editId">{{ind.notInTrack}}</span>
-            <input *ngIf="i == editId" class="form-control" [(ngModel)]="ind.notInTrack">
+            <input type="number" *ngIf="i == editId" class="form-control" [(ngModel)]="ind.notInTrack">
           </td>
+          <td *ngIf="editId == -1">{{ind.formula}}</td>
           <td class="text-center">
             <button *ngIf="i != editId" class="btn btn-warning" (click)="editField(i)"><i class="fa fa-edit"></i></button>
             <button *ngIf="i == editId" class="btn btn-success mr-2" (click)="saveDataStore()"><i class="fa fa-save"></i></button>

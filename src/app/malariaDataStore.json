@@ -41,7 +41,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(New malaria incidence - Original malaria incidence) / (original incidence) ] x 100"
     },
     {
       "name": "Change in estimated malaria mortality (2020 – 2024)",
@@ -51,7 +52,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(New malaria mortality - Original malaria mortality) / (original incidence) ] x 100"
     },
     {
       "name": "Change in estimated malaria cases treated and cured (2020 – 2024)",
@@ -61,7 +63,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(New malaria cases treated and cured - Original malaria cases treated and cured) / (original incidence) ] x 100"
     },
     {
       "name": "% of nets distributed",
@@ -71,7 +74,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(number of nets distributed) / (number of nets received) ] x 100"
     },
     {
       "name": "% of fever cases tested with RDT",
@@ -81,7 +85,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(Number of fever cases tested with RDT microscopy) / (Total number of fever cases received) ] x 100"
     },
     {
       "name": "% pregnant women provided IPTp at more than 12 week gestational age",
@@ -91,7 +96,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(Number of pregnant women with IPTp at more than 12 week gestational age) / (Total number of pregnant women at ANC1) ] x 100"
     },
     {
       "name": "% pregnant women receiving IPT x 2 only",
@@ -101,7 +107,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(Number of pregnant women with IPTp x 2 only) / (Total number of pregnant women at ANC2) ] x 100"
     },
     {
       "name": "% pregnant women receiving IPT x 3",
@@ -111,7 +118,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(Number of pregnant women with IPTp x 3) / (Total number of pregnant women at ANC3) ] x 100"
     },
     {
       "name": "% of malaria confirmed cases treated with first-line antimalarial treatment according to national policy",
@@ -121,7 +129,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(Number of malaria cases confirmed treated with first line antimalarial treatment according to national policy) / (Number of malaria cases confirmed) ] x 100"
     },
     {
       "name": "% of severe malaria cases referred for treatment",
@@ -131,7 +140,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(Number of severe malaria cases referred for treatment) / (Total number of severe malaria cases) ] x 100"
     },
     {
       "name": "% of health facilities with stock out",
@@ -141,7 +151,8 @@
       "type": "",
       "target": "",
       "achieved": "",
-      "notInTrack": ""
+      "notInTrack": "",
+      "formula": "[(Number of health facilities with stock out) / (Total number of health facilities) ] x 100"
     },
     {
       "name": "Number of days of ACT stock out",

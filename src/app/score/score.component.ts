@@ -30,12 +30,6 @@ export class ScoreComponent implements OnInit {
   selectedDistrictName: string;
   selectedFacilityName: string;
   loadingRegionData: boolean = true;
-  printHovered = false;
-  img1Hovered = false;
-  img2Hovered = false;
-  img3Hovered = false;
-  img4Hovered = false;
-  img5Hovered = false;
 
   exportAsConfig: ExportAsConfig = {
     type: 'png',
